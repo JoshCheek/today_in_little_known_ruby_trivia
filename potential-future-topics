@@ -1,0 +1,178 @@
+NameError::message
+  on < 2.3, you could initialize this class by invoking `!`
+included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
+modules have an inheritance structure
+classes track their subclasses (inheritance is a linked list and a tree)
+ordinal args after restargs
+keyword args keys must be symbols (aka they're broken, IMO)
+__END__ / DATA
+BEGIN / END
+-n and -p add methods to Object (or maybe Kernel or main)
+ivars don't have to begin with @ (though there's no way to show this without writing a C extension)
+if statement ordering of local variables (IMO, this is broken)
+BasicObject actually inherits from `false`, not `nil` (IIRC)
+If a class has only three instance variables, they are stored in the class itself, on the forth, they get copied over to a hash table
+various easter eggs (eg goto)
+`next` means `return` in a block.
+in a block, `break` returns to where the block was defined (this has an obvious fail-case, save the block and call it later, which gives a LocalJumpError)
+`redo` / `retry`
+
+There are 6 ways to call a proc
+  prc = lambda { |n| n + 1 }  # => #<Proc:0x007fb37a88c2e8@/var/folders/7g/mbft22555w3_2nqs_h1kbglw0000gn/T/seeing_is_believing_temp_dir20161017-97660-r4lp13/program.rb:1 (lambda)>
+
+  # The obvious way
+  prc.call(2)  # => 3
+
+  # This lets you place a proc into a case statement
+  prc === 2  # => 3
+
+  # Long ago, .yield would call it like a block and .call would call it like a lambda
+  # https://github.com/ruby/ruby/blob/9b383bd/eval.c#L8356-L8415
+  # (note that `proc` used to be an alias for `lambda`)
+  prc.yield 2  # => 3
+
+  # Syntactically similarity to parentheses
+  prc[2]  # => 3
+
+  # The new way to be syntactically similar to parentheses
+  prc.(2)  # => 3
+
+  # But you can call methods with ::, as well
+  prc::(2)  # => 3
+
+
+Asperands are used to differentiate operators that go in the front vs the back
+  class String
+    def -@(*) :front end
+    def -(*)  :back  end
+  end
+
+  -"s"       # => :front
+  "s" - "t"  # => :back
+
+  "s".-@  # => :front
+  "s".-   # => :back
+
+
+`else` on `rescue`
+  def a
+    yield  # => 1
+  rescue
+    2      # => 2
+  else
+    3      # => 3
+  ensure
+    4      # => 4, 4
+  end      # => :a
+
+  a { 1 }      # => 3
+  a { raise }  # => 2
+
+You can write code almost anywhere you like
+  class (
+      "hello#{
+        class A
+        end
+      }world"
+      A
+    )::B < (
+      if fork    # => 95028, nil
+        class C
+        end      # => nil
+        C        # => C
+      else
+        class D
+        end      # => nil
+        D        # => D
+      end        # => C, D
+    )            # => C, D
+  end            # => nil, nil
+
+  A::B           # => A::B, A::B
+    .superclass  # => C, D
+
+But you CAN'T write code in a singleton method target definition!
+
+safe navigation, operator method names, and block argument can be used together
+
+flip flops
+regex as condition to an if statement gets matched against $_
+
+5 dots in a row is valid syntax
+  # Strings are valid in a range
+  ("a"..."d")  # => "a"..."d"
+    .to_a      # => ["a", "b", "c"]
+
+  # Percent syntax lets you choose the delimiter
+  %.abc.  # => "abc"
+  %..     # => ""
+
+  # Thus, the range from empty string to empty string
+  # may include 5 dots in a row
+  %.....%..  # => ""...""
+
+
+You can create programs whose bodies are '%'*(3+n*4)
+  # Percent syntax lets you choose the delimiter
+  %.abc.  # => "abc"
+  %%abc%  # => "abc"
+  %%%     # => ""
+
+  # The percent method on a String is an alias for sprintf
+  # and it ignores args it doesn't need
+  "I have %s chromosomes" % "23"  # => "I have 23 chromosomes"
+  "I have    chromosomes" % "23"  # => "I have    chromosomes"
+  ""                      % ""    # => ""
+  %%%                     % %%%   # => ""
+
+  # So, after the first 3 percents, you can always add 4 more
+  %%%                                                          # => ""
+  %%% % %%%                                                    # => ""
+  %%% % %%% % %%%                                              # => ""
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  # => ""
+
+There are three places you can use an ampersand in a method call
+  # safe navigation operator won't invoke a method on nil
+  nil.to_s    # => ""
+  nil&.to_s   # => nil
+  self&.to_s  # => "main"
+
+  # method names can be operators
+  def self.&(n) 1 + n end  # => :&
+  self & 2                 # => 3
+
+  # Operators can be called with normal method syntax
+  self.&(2)  # => 3
+
+  # Blocks can be passed with an ampersand
+  def self.m() yield 1 end  # => :m
+  self.m &:to_s             # => "1"
+
+  # So there are three places you can use an ampersand in a method call
+  class String
+    def &() yield 1 end  # => :&
+  end                    # => :&
+
+  "hello"&.& &:even?  # => false
+
+  # Percent syntax lets us use an ampersand to delimit an empty string
+  %&&&.& &:even?  # => false
+
+The most ampersands you can get in a row is 4
+  %&&&&1  # => 1
+
+The most asperands you can syntactically get into a row is 3
+  def self.!@(*) 1 end  # => :!
+  @@a = 2               # => 2
+  self.!@@@a            # => 1
+
+The most dollar signs you can get in a row is 2
+  $$
+  %$$
+
+The most carets you can get in a row is 3
+  class String
+    def ^(*)
+    end         # => :^
+  end           # => :^
+  %^^^%^^       # => nil
