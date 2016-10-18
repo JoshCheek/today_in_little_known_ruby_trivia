@@ -1,6 +1,12 @@
 Today in little known Ruby trivia
 =================================
 
+These were surely inspired by sferik's Ruby Trivia:
+
+* [Ruby Trivia 1](https://speakerdeck.com/sferik/ruby-trivia)
+* [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
+* Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
+
 October 19
 ----------
 
