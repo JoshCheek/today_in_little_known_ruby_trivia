@@ -1,6 +1,39 @@
 Today in little known Ruby trivia
 =================================
 
+October 19
+----------
+
+There are 6 ways to call a proc.
+Explanation [here](6_ways_to_call_a_proc.md).
+
+```ruby
+prc = lambda { |n| n + 1 }
+
+prc.call 2    # => 3
+prc === 2     # => 3
+prc.yield 2   # => 3
+prc[2]        # => 3
+prc.(2)       # => 3
+prc::(2)      # => 3
+```
+
+
+October 18
+----------
+
+The "scope resolution operator" looks up methods as well as constants. ((link)[https://twitter.com/josh_cheek/status/788356344000737280])
+
+```ruby
+Array::                   # => Array
+  new(5) { |n| n * 2 }::  # => [0, 2, 4, 6, 8]
+  reduce(0, :+)::         # => 20
+  even?                   # => true
+
+Array::new(5) { |n| n * 2 }::reduce(0, :+)::even?  # => true
+```
+
+
 October 17
 ----------
 
@@ -48,6 +81,7 @@ ObjectSpace.each_object(Module).select { |c| c.to_s[/(^|:)[a-z]/] }
 #     IO::generic_writable,
 #     IO::generic_readable]
 ```
+
 
 October 14
 ----------

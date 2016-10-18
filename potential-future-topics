@@ -1,5 +1,5 @@
 NameError::message
-  on < 2.3, you could initialize this class by invoking `!`
+  on < 2.3, you could initialize this class by invoking `!@`
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
 modules have an inheritance structure
 classes track their subclasses (inheritance is a linked list and a tree)
@@ -16,29 +16,6 @@ various easter eggs (eg goto)
 `next` means `return` in a block.
 in a block, `break` returns to where the block was defined (this has an obvious fail-case, save the block and call it later, which gives a LocalJumpError)
 `redo` / `retry`
-
-There are 6 ways to call a proc
-  prc = lambda { |n| n + 1 }  # => #<Proc:0x007fb37a88c2e8@/var/folders/7g/mbft22555w3_2nqs_h1kbglw0000gn/T/seeing_is_believing_temp_dir20161017-97660-r4lp13/program.rb:1 (lambda)>
-
-  # The obvious way
-  prc.call(2)  # => 3
-
-  # This lets you place a proc into a case statement
-  prc === 2  # => 3
-
-  # Long ago, .yield would call it like a block and .call would call it like a lambda
-  # https://github.com/ruby/ruby/blob/9b383bd/eval.c#L8356-L8415
-  # (note that `proc` used to be an alias for `lambda`)
-  prc.yield 2  # => 3
-
-  # Syntactically similarity to parentheses
-  prc[2]  # => 3
-
-  # The new way to be syntactically similar to parentheses
-  prc.(2)  # => 3
-
-  # But you can call methods with ::, as well
-  prc::(2)  # => 3
 
 
 Asperands are used to differentiate operators that go in the front vs the back
@@ -176,3 +153,12 @@ The most carets you can get in a row is 3
     end         # => :^
   end           # => :^
   %^^^%^^       # => nil
+
+class can have a rescue and else keyword, too
+  class A
+    raise "hi" if fork  # => nil
+  rescue
+    $!                  # => #<RuntimeError: hi>
+  else
+    123                 # => 123
+  end                   # => #<RuntimeError: hi>, 123
