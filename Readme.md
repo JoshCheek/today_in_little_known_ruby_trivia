@@ -22,7 +22,7 @@ prc::(2)      # => 3
 October 18
 ----------
 
-The "scope resolution operator" looks up methods as well as constants. ((link)[https://twitter.com/josh_cheek/status/788356344000737280])
+The "scope resolution operator" looks up methods as well as constants. ([link](https://twitter.com/josh_cheek/status/788356344000737280))
 
 ```ruby
 Array::                   # => Array
@@ -37,7 +37,7 @@ Array::new(5) { |n| n * 2 }::reduce(0, :+)::even?  # => true
 October 17
 ----------
 
-Core constants are accessed via inheritance, not lexical scope. ((link)[https://twitter.com/josh_cheek/status/787905568841142272])
+Core constants are accessed via inheritance, not lexical scope. ([link](https://twitter.com/josh_cheek/status/787905568841142272))
 
 ```ruby
 class String
@@ -53,7 +53,7 @@ end
 October 16
 ----------
 
-`NameError::message` hangs onto the receiver so it can calculate the message on demand. ((link)[https://twitter.com/josh_cheek/status/787709475377602560])
+`NameError::message` hangs onto the receiver so it can calculate the message on demand. ([link](https://twitter.com/josh_cheek/status/787709475377602560))
 
 ```ruby
 s = String.new
@@ -70,7 +70,7 @@ e.message  # => "undefined method `m' for s2:String"
 October 15
 ----------
 
-Constants you're not supposed to know about. ((link)[https://twitter.com/josh_cheek/status/787477591930376192])
+Constants you're not supposed to know about. ([link](https://twitter.com/josh_cheek/status/787477591930376192))
 
 ```ruby
 ObjectSpace.each_object(Module).select { |c| c.to_s[/(^|:)[a-z]/] }
@@ -86,7 +86,7 @@ ObjectSpace.each_object(Module).select { |c| c.to_s[/(^|:)[a-z]/] }
 October 14
 ----------
 
-Shadow variables ((link)[https://twitter.com/josh_cheek/status/786915998343503872])
+Shadow variables ([link](https://twitter.com/josh_cheek/status/786915998343503872))
 
 ```ruby
 a = 1  # => 1
