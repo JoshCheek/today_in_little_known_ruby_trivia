@@ -44,6 +44,8 @@ which is why I've historically advocated avoiding it and only using `Proc.new` a
 --------------------
 
 Brackets are syntactically similarity to parentheses, I'm pretty sure that was the motive behind their introduction.
+I'm counting `prc.[](2)  # => 3` here, as well. If you consider those different (I don't), then you could argue
+that there are 7 ways to call a proc.
 
 
 5. ` prc.(2)  # => 3`

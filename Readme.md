@@ -12,6 +12,8 @@ October 19
 
 There are 6 ways to call a proc.
 Explanation [here](6_ways_to_call_a_proc.md).
+([link](https://twitter.com/josh_cheek/status/788801646553886720))
+
 
 ```ruby
 prc = lambda { |n| n + 1 }
