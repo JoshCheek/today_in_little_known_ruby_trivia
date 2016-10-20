@@ -1,3 +1,4 @@
+private instance methods on main's singleton class
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
