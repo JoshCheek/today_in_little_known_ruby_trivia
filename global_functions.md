@@ -17,13 +17,20 @@ self.puts("c")  # <-- which is really a method on self
 ```
 
 
-They are "global" (available everywhere -- almost) because they were
-included into Object, which everything except `BasicObject` inherits from.
+They are "global" (available almost everywhere) because they were
+defined in Kernel, which was included into Object.
+included into Object
 
 ```ruby
-method(:puts).owner                                # => Kernel
-123.method(:puts).owner                            # => Kernel
-"abc".method(:puts).owner                          # => Kernel
+method(:puts).owner        # => Kernel
+123.method(:puts).owner    # => Kernel
+"abc".method(:puts).owner  # => Kernel
+``
+
+
+Which everything except `BasicObject` inherits from.
+
+```ruby
 Object.new.instance_eval { puts "from obj" }       # => nil
 BasicObject.new.instance_eval { puts "no dice!" }  # ~> NoMethodError: undefined method `puts' for #<BasicObject:0x007fcdb20589f8>
 
