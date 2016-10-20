@@ -25,7 +25,7 @@ included into Object
 method(:puts).owner        # => Kernel
 123.method(:puts).owner    # => Kernel
 "abc".method(:puts).owner  # => Kernel
-``
+```
 
 
 Which everything except `BasicObject` inherits from.
