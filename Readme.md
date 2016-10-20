@@ -7,6 +7,33 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+
+October 20
+----------
+
+Global functions are private instance methods inherited from Kernel. Explanation [here](global_functions.md).
+([link](https://twitter.com/josh_cheek/status/789230643087572994))
+
+```ruby
+# `puts` is a private method inherited from Kernel
+self.method(:puts).owner # => Kernel
+self.puts("a") rescue $! # => #<NoMethodError: private method `puts' called for main:Object\nDid you mean?  putc>
+Kernel.module_eval { public :puts }
+self.puts("b")
+
+# Now it's public everywhere!
+12345.puts("c")
+"abc".puts("d")
+Array.puts("e").puts("f")
+
+# >> b
+# >> c
+# >> d
+# >> e
+# >> f
+```
+
+
 October 19
 ----------
 
