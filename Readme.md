@@ -7,6 +7,30 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+October 23
+----------
+
+Main's visibility starts off private, and methods defined there get added to Object.
+
+
+October 22
+----------
+
+Main is just an object with some methods defined on its singleton class.
+Explanation [here](global_functions.md).
+([link](?))
+
+```ruby
+self # => main
+
+class << self
+  remove_method :inspect
+end
+
+self       # => #<Object:0x007fa3810d6660>
+Object.new # => #<Object:0x007fa3818891c8>
+```
+
 
 October 20
 ----------
