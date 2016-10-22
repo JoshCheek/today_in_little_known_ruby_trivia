@@ -1,4 +1,5 @@
-private instance methods on main's singleton class
+Toplevel scope is private and defines methods on on Object
+Every method takes a block
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
@@ -17,6 +18,7 @@ various easter eggs (eg goto)
 `next` means `return` in a block.
 in a block, `break` returns to where the block was defined (this has an obvious fail-case, save the block and call it later, which gives a LocalJumpError)
 `redo` / `retry`
+That whole weird include thing where there's like multiple include methods and you can define what it means to include your object
 
 
 Asperands are used to differentiate operators that go in the front vs the back

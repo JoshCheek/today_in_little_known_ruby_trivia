@@ -18,7 +18,7 @@ October 22
 
 Main is just an object with some methods defined on its singleton class.
 Explanation [here](global_functions.md).
-([link](?))
+([link](https://twitter.com/josh_cheek/status/789844581344960512))
 
 ```ruby
 self # => main
