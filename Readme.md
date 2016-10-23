@@ -11,6 +11,17 @@ October 23
 ----------
 
 Main's visibility starts off private, and methods defined there get added to Object.
+([link](https://twitter.com/josh_cheek/status/790091502097604608))
+
+```ruby
+def x() 1 end
+public
+def y() 2 end
+
+"abc".x rescue $!.message  # => "private method `x' called for \"abc\":String"
+"abc".y                    # => 2
+"abc".method(:x).owner     # => Object
+```
 
 
 October 22
