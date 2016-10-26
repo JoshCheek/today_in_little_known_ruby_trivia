@@ -7,6 +7,23 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+
+October 26
+----------
+
+Local variables are known before they are used.
+
+```ruby
+a = 1                # => 1
+local_variables      # => [:a, :b]
+
+eval('a')            # => 1
+eval('b')            # => nil
+eval('c') rescue $!  # => #<NameError: undefined local variable or method `c' for main:Object>
+b = 2                # => 2
+```
+
+
 October 23
 ----------
 

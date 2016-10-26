@@ -1,4 +1,3 @@
-Toplevel scope is private and defines methods on on Object
 Every method takes a block
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
@@ -10,6 +9,7 @@ keyword args keys must be symbols (aka they're broken, IMO)
 __END__ / DATA
 BEGIN / END
 -n and -p add methods to Object (or maybe Kernel or main)
+  $ ruby -e 'p private_methods' | ruby -ne 'p private_methods - eval($_)'
 ivars don't have to begin with @ (though there's no way to show this without writing a C extension)
 if statement ordering of local variables (IMO, this is broken)
 BasicObject actually inherits from `false`, not `nil` (IIRC)
@@ -19,6 +19,7 @@ various easter eggs (eg goto)
 in a block, `break` returns to where the block was defined (this has an obvious fail-case, save the block and call it later, which gives a LocalJumpError)
 `redo` / `retry`
 That whole weird include thing where there's like multiple include methods and you can define what it means to include your object
+giving a regex to an if statement matches it against `$_`
 
 
 Asperands are used to differentiate operators that go in the front vs the back
@@ -76,7 +77,6 @@ But you CAN'T write code in a singleton method target definition!
 safe navigation, operator method names, and block argument can be used together
 
 flip flops
-regex as condition to an if statement gets matched against $_
 
 5 dots in a row is valid syntax
   # Strings are valid in a range
