@@ -4,7 +4,6 @@ NameError::message
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
 modules have an inheritance structure
 classes track their subclasses (inheritance is a linked list and a tree)
-ordinal args after restargs
 keyword args keys must be symbols (aka they're broken, IMO)
 __END__ / DATA
 BEGIN / END

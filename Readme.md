@@ -8,10 +8,28 @@ These were surely inspired by sferik's Ruby Trivia:
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
 
+October 27
+----------
+
+You can place ordinal-parameters before and after rest-parameters.
+([link](https://twitter.com/josh_cheek/status/791790634151489536))
+
+```ruby
+def m(param1, *rest, param2)
+  param1 # => 1
+  rest   # => [2, 3, 4]
+  param2 # => 5
+end
+
+m(1, 2, 3, 4, 5)
+```
+
+
 October 26
 ----------
 
 Local variables are known before they are used.
+([link](https://twitter.com/josh_cheek/status/791361239666397184))
 
 ```ruby
 a = 1                # => 1
