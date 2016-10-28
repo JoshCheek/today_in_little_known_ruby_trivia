@@ -1,3 +1,5 @@
+$& is generated when it is looked up ($\=$,=$&) != ($\=$&;$\=$,)
+You don't need curly braces when interpolating ivars/globals/prob cvars
 Every method takes a block
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
@@ -20,18 +22,37 @@ in a block, `break` returns to where the block was defined (this has an obvious 
 That whole weird include thing where there's like multiple include methods and you can define what it means to include your object
 giving a regex to an if statement matches it against `$_`
 
-
-Asperands are used to differentiate operators that go in the front vs the back
-  class String
-    def -@(*) :front end
-    def -(*)  :back  end
-  end
-
-  -"s"       # => :front
-  "s" - "t"  # => :back
-
-  "s".-@  # => :front
-  "s".-   # => :back
+There are 9 types of variables, as of MRI 2.3
+  ```ruby
+  shadow = :outside
+  ->(ord1,
+     opt=:opt,
+     *rest,
+     ord2,
+     kw:,
+     kwopt: :kwopt,
+     **kwrest,
+     &block;
+     shadow
+  ) {
+    ord1    # => :ord1
+    opt     # => :opt
+    rest    # => []
+    ord2    # => :ord2
+    kw      # => :kw
+    kwopt   # => :kwopt
+    kwrest  # => {}
+    block   # => #<Proc:0x007ff8d40429d0@/var/folders/7g/mbft22555w3_2nqs_h1kbglw0000gn/T/seeing_is_believing_temp_dir20161027-45762-nmflf5/program.rb:26>
+      .call # => :block
+    shadow  # => nil
+  }.(
+    :ord1,
+    :ord2,
+    kw: :kw,
+  ) {
+    :block
+  }
+  ```
 
 
 `else` on `rescue`

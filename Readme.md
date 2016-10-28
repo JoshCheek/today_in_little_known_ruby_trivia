@@ -8,6 +8,27 @@ These were surely inspired by sferik's Ruby Trivia:
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
 
+October 28
+----------
+
+Asperands are used to differentiate operators that go in the front vs the back
+([link](https://twitter.com/josh_cheek/status/792028384393961473))
+
+```ruby
+class Symbol
+  def -@(*) :front end
+  def -(*)  :back  end
+end
+
+-:s      # => :front
+:s - :t  # => :back
+
+:s.-@    # => :front
+:s.-     # => :back
+```
+
+
+
 October 27
 ----------
 
