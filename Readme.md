@@ -8,6 +8,22 @@ These were surely inspired by sferik's Ruby Trivia:
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
 
+October 29
+----------
+
+You don't need curly braces when interpolating
+class variables, instance variables, or global variables
+([link](https://twitter.com/josh_cheek/status/792454912386871297))
+
+```ruby
+a   = 1                # => 1
+@@b = 2                # => 2
+@c  = 3                # => 3
+$d  = 4                # => 4
+"-#{a}-#@@b-#@c-#$d-"  # => "-1-2-3-4-"
+```
+
+
 October 28
 ----------
 
