@@ -7,6 +7,22 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+October 30
+----------
+
+Global variables can be aliased.
+([link](https://twitter.com/josh_cheek/status/792642615967617025))
+
+```ruby
+alias $a $b
+
+$b = 1
+$a # => 1
+
+$a = 2
+$b # => 2
+```
+
 
 October 29
 ----------
