@@ -299,3 +299,39 @@ Both `class_eval` and `instance_eval` set self to the class, but the `def` keywo
   A.new.m1 # => :m1
   A.m2     # => :m2
   A.m3     # => :m3
+
+Object IDs are based on objects' memory location (LSB of 1 means integer, 0 means object)
+  123.object_id  # => 247
+     .>>(1)      # => 123
+
+  Object        # => Object
+    .new        # => #<Object:0x007fbb488a65a0>
+    .object_id  # => 70221176320720
+    .<<(1)      # => 140442352641440
+    .to_s(16)   # => "7fbb488a65a0"
+
+  false.object_id.to_s(2)  # => "0"
+  true.object_id.to_s(2)   # => "10100"
+  nil.object_id.to_s(2)    # => "1000"
+
+you can name your methods keywords
+
+  public                  # => Object
+  def self.defined?(arg)
+    false                 # => false
+  end                     # => :defined?
+
+  defined?(a)        # => nil
+  self.defined?(:a)  # => false
+
+Regexp options
+
+  //meoinusx  # => //mix
+
+Assignment implicit arrays
+
+  a = 1, 2
+  a # => [1, 2]
+
+ruby ships with obfuscated programs, including a video showing mame's music box
+  (in sample/trickYEAR)
