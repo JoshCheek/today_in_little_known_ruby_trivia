@@ -7,6 +7,38 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+October 31
+----------
+
+There are 9 types of arguments.
+([link](https://twitter.com/josh_cheek/status/793060811237367809))
+
+```ruby
+shadow = :outside
+lambda { |
+  ord1,          # ordinal (required) before restargs
+  opt=:opt,      # optional ordinal (defaults if not set)
+  *rest,         # rest args (aggregates ordinals into an array)
+  ord2,          # ordinal after restargs
+  kw:,           # keyword, required
+  kwopt: :kwopt, # optional keyword (defaults if not set)
+  **kwrest,      # keyword rest args (aggregates keywords into a hash)
+  &block;        # wraps block in a proc and assigns to a varaible
+  shadow         # declares a new variable, ignoring the outside one
+| ord1           # => :ord1
+  opt            # => :opt
+  rest           # => []
+  ord2           # => :ord2
+  kw             # => :kw
+  kwopt          # => :kwopt
+  kwrest         # => {}
+  block.call     # => :block
+  shadow         # => nil
+}.call(:ord1, :ord2, kw: :kw) { :block }
+```
+
+
+
 October 30
 ----------
 

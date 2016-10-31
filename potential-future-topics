@@ -59,40 +59,6 @@ Block scopes have a target class for the `def` keyword, this is one of the thing
   C2::C3.new.d  # => :d
   C2.new.e      # => :e
 
-
-There are 9 types of variables, as of MRI 2.3
-  ```ruby
-  shadow = :outside
-  ->(ord1,
-     opt=:opt,
-     *rest,
-     ord2,
-     kw:,
-     kwopt: :kwopt,
-     **kwrest,
-     &block;
-     shadow
-  ) {
-    ord1    # => :ord1
-    opt     # => :opt
-    rest    # => []
-    ord2    # => :ord2
-    kw      # => :kw
-    kwopt   # => :kwopt
-    kwrest  # => {}
-    block   # => #<Proc:0x007ff8d40429d0@/var/folders/7g/mbft22555w3_2nqs_h1kbglw0000gn/T/seeing_is_believing_temp_dir20161027-45762-nmflf5/program.rb:26>
-      .call # => :block
-    shadow  # => nil
-  }.(
-    :ord1,
-    :ord2,
-    kw: :kw,
-  ) {
-    :block
-  }
-  ```
-
-
 `else` on `rescue`
   def a
     yield  # => 1
