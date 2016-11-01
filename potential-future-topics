@@ -291,13 +291,20 @@ you can name your methods keywords
   self.defined?(:a)  # => false
 
 Regexp options
-
   //meoinusx  # => //mix
+  # Parse.y parser_regx_options
+  # o = once
 
-Assignment implicit arrays
+  # re.c rb_char_to_option_kcode
+  # n = ARG_ENCODING_NONE
+  # e = ENCINDEX_EUC_JP
+  # s = ENCINDEX_Windows_31J
+  # u = rb_utf8_encindex
 
-  a = 1, 2
-  a # => [1, 2]
+  # re.c char_to_option
+  # i = ONIG_OPTION_IGNORECASE
+  # x = ONIG_OPTION_EXTEND
+  # m = ONIG_OPTION_MULTILINE
 
 ruby ships with obfuscated programs, including a video showing mame's music box
   (in sample/trickYEAR)

@@ -7,6 +7,19 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+
+November 1
+----------
+
+You don't need brackets when assigning an array (there is an implicit array around multiple assignment).
+([link](https://twitter.com/josh_cheek/status/793517994987098112))
+
+```ruby
+a = 1, 2, 3
+a # => [1, 2, 3]
+```
+
+
 October 31
 ----------
 
