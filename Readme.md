@@ -8,6 +8,20 @@ These were surely inspired by sferik's Ruby Trivia:
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
 
+November 2
+----------
+
+Backticks are a method.
+
+```ruby
+def `(str)
+  str.reverse
+end
+
+`ls -l`  # => "l- sl"
+```
+
+
 November 1
 ----------
 

@@ -1,5 +1,4 @@
 $& is generated when it is looked up ($\=$,=$&) != ($\=$&;$\=$,)
-backticks are a method
 Every method takes a block
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
