@@ -1,14 +1,14 @@
 $& is generated when it is looked up ($\=$,=$&) != ($\=$&;$\=$,)
-Every method takes a block
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
-at_exit is a thing
+at_exit is a thing (probably the same as END, tbh)
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
 modules have an inheritance structure
 classes track their subclasses (inheritance is a linked list and a tree)
 keyword args keys must be symbols (aka they're broken, IMO)
 __END__ / DATA
 BEGIN / END
+It is syntactically invalid to put BEGIN within another syntactic construct, but not so for END
 -n and -p add methods to Object (or maybe Kernel or main)
   $ ruby -e 'p private_methods' | ruby -ne 'p private_methods - eval($_)'
 ivars don't have to begin with @ (though there's no way to show this without writing a C extension)
@@ -23,7 +23,6 @@ That whole weird include thing where there's like multiple include methods and y
 giving a regex to an if statement matches it against `$_`
 There is no such thing as class methods, they're just singleton methods whose object happens to be a class
 You can get a heap dump
-
 Constant assignment is always based on lexical scope
   class A
   end
@@ -206,12 +205,9 @@ class can have a rescue and else keyword, too
 * `ruby -e 'x=y=false; p(y ?x :x)'` Now delete either the `x=` or the `y=` (or both) (got this one from Yusuke Endoh)
 * `if (a=1); a; end` vs `1 if a=1`
 * `a+=1` vs `a||a=1` vs `a=a||1`
-* in main, methods are declared privately on Object
 * class vars
 * `T_ICLASS`
 * system prints to the process's actual stdout, so `$stdout=STDOUT=File.open("something")` won't stop it from printing
-* Constants with lowercase first letters (eg fatal)
-* `NameError::message`
 * `Queue.new.shift` fastest deadlock? Also, the fact that it can tell you it's deadlocked means what?
 * Globals you can't assign to, eg `$_ = ""` vs `$1 = ""`, and `$* = ['a']` (note that one is a SyntaxError, other a NameError)
 * Mutex vs Monitor
@@ -230,7 +226,6 @@ class can have a rescue and else keyword, too
 * `A B`, syntactically, `A` is a method, `B` is a constant
 * What will this code do? `class BasicObject; Object; end`
 * What does this code evaluate to? `Class.singleton_class.superclass.superclass.superclass.superclass`
-* What happens if you save an instance variable without a leading `@`?
 * Class and method syntax
   A = Class.new  # => A
   B = Class.new  # => B

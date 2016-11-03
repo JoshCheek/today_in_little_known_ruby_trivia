@@ -8,10 +8,35 @@ These were surely inspired by sferik's Ruby Trivia:
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
 
+November 3
+----------
+
+Every method can take a block.
+Pretty sure it's stored [here](https://github.com/ruby/ruby/blob/trunk/vm_core.h#L636)
+([link](https://twitter.com/josh_cheek/status/794181672526905346))
+
+```ruby
+# Some methods we call all the time
+puts(1)    { 2 }  # => nil
+Object.new { 3 }  # => #<Object:0x007fe2a2904098>
+4.+(5)     { 6 }  # => 9
+
+# Our own method
+def omg() block_given? end  # => :omg
+omg { 7 }                   # => true
+
+def bbq() block_given? end  # => :bbq
+bbq                         # => false
+
+# >> 1
+```
+
+
 November 2
 ----------
 
-Backticks are a method.
+Backticks are a method
+([link](https://twitter.com/josh_cheek/status/793821846927998977))
 
 ```ruby
 def `(str)
