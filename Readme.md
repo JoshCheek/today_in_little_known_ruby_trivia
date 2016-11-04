@@ -7,6 +7,27 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+November 4
+----------
+
+Constant assignment is always based on lexical scope (the word "class" in the source code)
+([link](https://twitter.com/josh_cheek/status/794585743259668483)).
+
+```ruby
+class A
+end
+
+class B
+  ::A.module_eval   { C = :C }
+  ::A.class_eval    { D = :D }
+  ::A.instance_eval { E = :E }
+  Class.new         { F = :F }
+end
+
+A.constants # => []
+B.constants # => [:C, :D, :E, :F]
+```
+
 
 November 3
 ----------

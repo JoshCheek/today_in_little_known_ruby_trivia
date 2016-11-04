@@ -23,22 +23,9 @@ That whole weird include thing where there's like multiple include methods and y
 giving a regex to an if statement matches it against `$_`
 There is no such thing as class methods, they're just singleton methods whose object happens to be a class
 You can get a heap dump
-Constant assignment is always based on lexical scope
-  class A
-  end
-
-  class B
-    ::A.module_eval   { C = :C }
-    ::A.class_eval    { D = :D }
-    ::A.instance_eval { E = :E }
-    Class.new         { F = :F }
-  end
-
-  B::C  # => :C
-  B::D  # => :D
-  B::E  # => :E
-  B::F  # => :F
-
+RbConfig
+RubyVM
+Proc.new without a block https://twitter.com/wvmdltr/status/794196790673281024
 Block scopes have a target class for the `def` keyword, this is one of the things that differentiates blocks and the types of eval
   class C1
   end
