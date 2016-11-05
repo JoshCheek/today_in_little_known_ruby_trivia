@@ -7,6 +7,45 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+November 5
+----------
+
+Block scopes have a target class for the `def` keyword, the different types of eval modify this
+([link](https://twitter.com/josh_cheek/status/794968385222217728)).
+
+```ruby
+C1 = Class.new  # => C1
+
+class C2
+  ::C1.module_eval   { def a() :a end } # C1
+  ::C1.class_eval    { def b() :b end } # C1
+  ::C1.instance_eval { def c() :c end } # C1's singleton class
+  C3 = Class.new     { def d() :d end } # C2::C3
+  lambda             { def e() :e end } # C2
+end.call  # => :e
+
+C1.new.a      # => :a
+C1.new.b      # => :b
+C1.c          # => :c
+C2::C3.new.d  # => :d
+C2.new.e      # => :e
+```
+
+The obvious thing to wonder, IMO, is what happens when you pass a method instead of a block.
+As of 2.3.1, this is what happens (IIRC, it used to just explode in this situation).
+
+```ruby
+C1, C2 = Class.new, Class.new
+def C1.omg(arg)
+  self # => C1, C1, C1
+  arg  # => C2, C2, C2
+end
+C2.module_eval   &C1.method(:omg)
+C2.class_eval    &C1.method(:omg)
+C2.instance_eval &C1.method(:omg)
+```
+
+
 November 4
 ----------
 

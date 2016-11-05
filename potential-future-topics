@@ -6,6 +6,9 @@ included class (can be shown by requiring 'objspace' and then invoking `ObjectSp
 modules have an inheritance structure
 classes track their subclasses (inheritance is a linked list and a tree)
 keyword args keys must be symbols (aka they're broken, IMO)
+globals
+  error handling: $! / $@
+  Regexp
 __END__ / DATA
 BEGIN / END
 It is syntactically invalid to put BEGIN within another syntactic construct, but not so for END
@@ -26,23 +29,6 @@ You can get a heap dump
 RbConfig
 RubyVM
 Proc.new without a block https://twitter.com/wvmdltr/status/794196790673281024
-Block scopes have a target class for the `def` keyword, this is one of the things that differentiates blocks and the types of eval
-  class C1
-  end
-
-  class C2
-    ::C1.module_eval   { def a() :a end }
-    ::C1.class_eval    { def b() :b end }
-    ::C1.instance_eval { def c() :c end }
-    C3 = Class.new     { def d() :d end }
-    lambda             { def e() :e end }
-  end.call
-
-  C1.new.a      # => :a
-  C1.new.b      # => :b
-  C1.c          # => :c
-  C2::C3.new.d  # => :d
-  C2.new.e      # => :e
 
 `else` on `rescue`
   def a
