@@ -32,7 +32,7 @@ C2.new.e      # => :e
 ```
 
 The obvious thing to wonder, IMO, is what happens when you pass a method instead of a block.
-As of 2.3.1, this is what happens (IIRC, it used to just explode in this situation).
+As of 2.3.1, it does not change self (IIRC, it used to just explode in this situation).
 
 ```ruby
 C1, C2 = Class.new, Class.new
@@ -43,6 +43,27 @@ end
 C2.module_eval   &C1.method(:omg)
 C2.class_eval    &C1.method(:omg)
 C2.instance_eval &C1.method(:omg)
+```
+
+And it does not change the deftarget (it's still Object).
+
+```ruby
+C, @count = Class.new, 0  # => [C, 0]
+
+def self.omg(*)
+  case @count += 1            # => 1, 2, 3, 4
+  when 1 then def a() :a end  # => :a
+  when 2 then def b() :b end  # => :b
+  when 3 then def c() :c end  # => :c
+  when 4 then def d() :d end  # => :d
+  end                         # => :a, :b, :c, :d
+end                           # => :omg
+
+omg                            # => :a
+C.module_eval   &method(:omg)  # => :b
+C.class_eval    &method(:omg)  # => :c
+C.instance_eval &method(:omg)  # => :d
+Object.instance_methods false  # => [:b, :a, :d, :c]
 ```
 
 
