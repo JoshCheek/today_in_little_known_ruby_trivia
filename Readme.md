@@ -17,20 +17,14 @@ In this case, the namespace and superclass can be any code as long as it evaluat
 The fork lets us see both branches of the if statement without changing code.
 
 ```ruby
-class (
-  "In A #{class InANamespace; end} String!".class
-  ) :: AndAlso < (
-    if (class InAConditional; end || fork) # <-- notice the fork
-      :"In A #{class AndInA; end} Symbol!".class
-    else
-      /In A #{class Superclass; end} Regex!/.class
-    end
-  )
+class "In A #{class InANamespace; end} String!".class::AndAlso <
+        if class InAConditional; end || fork # <-- lets us eval both branches of the if statement
+          :"In A #{class AndInA; end} Symbol!".class
+        else
+          /In A #{class Superclass; end} Regex!/.class
+        end
 end
-
-String::       # => String,          String
-  AndAlso      # => String::AndAlso, String::AndAlso
-  .superclass  # => Symbol,          Regexp
+String::AndAlso.superclass # => Symbol, Regexp
 ```
 
 November 5
