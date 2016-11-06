@@ -7,6 +7,32 @@ These were surely inspired by sferik's Ruby Trivia:
 * [Ruby Trivia 2](https://speakerdeck.com/sferik/ruby-trivia-2)
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
+November 6
+----------
+
+You can write code almost anywhere you like!
+([link](https://twitter.com/josh_cheek/status/795280135163441152))
+
+In this case, the namespace and superclass can be any code as long as it evaluates to a class.
+The fork lets us see both branches of the if statement without changing code.
+
+```ruby
+class (
+  "In A #{class InANamespace; end} String!".class
+  ) :: AndAlso < (
+    if (class InAConditional; end || fork) # <-- notice the fork
+      :"In A #{class AndInA; end} Symbol!".class
+    else
+      /In A #{class Superclass; end} Regex!/.class
+    end
+  )
+end
+
+String::       # => String,          String
+  AndAlso      # => String::AndAlso, String::AndAlso
+  .superclass  # => Symbol,          Regexp
+```
+
 November 5
 ----------
 

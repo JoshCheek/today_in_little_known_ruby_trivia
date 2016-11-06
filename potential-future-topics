@@ -44,34 +44,11 @@ Proc.new without a block https://twitter.com/wvmdltr/status/794196790673281024
   a { 1 }      # => 3
   a { raise }  # => 2
 
-You can write code almost anywhere you like
-  class (
-      "hello#{
-        class A
-        end
-      }world"
-      A
-    )::B < (
-      if fork    # => 95028, nil
-        class C
-        end      # => nil
-        C        # => C
-      else
-        class D
-        end      # => nil
-        D        # => D
-      end        # => C, D
-    )            # => C, D
-  end            # => nil, nil
+You CAN'T write code in a singleton method target definition!
 
-  A::B           # => A::B, A::B
-    .superclass  # => C, D
+Safe navigation, operator method names, and block argument can be used together
 
-But you CAN'T write code in a singleton method target definition!
-
-safe navigation, operator method names, and block argument can be used together
-
-flip flops
+Flip flops
 
 5 dots in a row is valid syntax
   # Strings are valid in a range
