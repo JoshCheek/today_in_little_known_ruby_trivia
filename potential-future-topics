@@ -23,7 +23,16 @@ various easter eggs (eg goto)
 in a block, `break` returns to where the block was defined (this has an obvious fail-case, save the block and call it later, which gives a LocalJumpError)
 `redo` / `retry`
 That whole weird include thing where there's like multiple include methods and you can define what it means to include your object
-giving a regex to an if statement matches it against `$_`
+Giving a regex to an if statement matches it against `$_`
+  # You'd think these two would be the same
+  r = /a/          # => /a/
+  :whatevz if r    # => :whatevz
+  :whatevz if /a/  # => nil
+
+  # But Perl was one of Ruby's influences
+  $_ = "a"         # => "a"
+  :whatevz if /a/  # => :whatevz
+  :whatevz if /A/  # => nil
 There is no such thing as class methods, they're just singleton methods whose object happens to be a class
 You can get a heap dump
 RbConfig
@@ -45,6 +54,7 @@ Proc.new without a block https://twitter.com/wvmdltr/status/794196790673281024
   a { raise }  # => 2
 
 You CAN'T write code in a singleton method target definition!
+You CAN't define a class inside a method body
 
 Safe navigation, operator method names, and block argument can be used together
 
