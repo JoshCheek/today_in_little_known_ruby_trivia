@@ -439,3 +439,15 @@ class "In A #{class InANamespace; end} String!".class::AndAlso <
 end
 String::AndAlso.superclass # => Symbol, Regexp
 ```
+
+November 7
+----------
+
+`not` is just syntactic sugar for `!@` ([link](https://twitter.com/josh_cheek/status/795778934965207040))
+
+```ruby
+s = ""
+def s.!@() "RAWR" end
+!s     # => "RAWR"
+not s  # => "RAWR"
+```

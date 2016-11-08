@@ -2,7 +2,43 @@ $& is generated when it is looked up ($\=$,=$&) != ($\=$&;$\=$,)
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
 at_exit is a thing (probably the same as END, tbh)
+you can use "then" in if statements and rescue statements
+rescue multiple types
+You can use `then` in a lot of places
+  begin
+    raise
+  rescue => e then
+    2               # => 2
+  end               # => 2
+  if true then     # => true
+    1              # => 1
+  elsif true then
+    2
+  else
+    3
+  end              # => 1
+  unless false then  # => false
+    1                # => 1
+  end                # => 1
+
+`raise` takes an optional backtrace and if you give it a non-exception, it will invoke `exception` to get it
+  obj = Object.new
+  def obj.exception(message)
+    RuntimeError.new message
+  end
+
+  begin
+    raise obj, "hello", ['a', 'b']
+  rescue => exception
+    exception           # => #<RuntimeError: hello>
+    exception.backtrace # => ["a", "b"]
+  end
+
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
+adjacent string literals are concatenated
+frozen_string_literal: true
+how encodings are sorted out when concatenating strings of different encodings
+you can define your own pretty inspect for working with pp (eg useful in pry and SiB)
 modules have an inheritance structure
 classes track their subclasses (inheritance is a linked list and a tree)
 keyword args keys must be symbols (aka they're broken, IMO)
@@ -11,6 +47,7 @@ globals
   Regexp
 __END__ / DATA
 BEGIN / END
+backtick heredocs shell out
 It is syntactically invalid to put BEGIN within another syntactic construct, but not so for END
 -n and -p add methods to Object (or maybe Kernel or main)
   $ ruby -e 'p private_methods' | ruby -ne 'p private_methods - eval($_)'
