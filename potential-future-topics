@@ -48,6 +48,11 @@ globals
 __END__ / DATA
 BEGIN / END
 backtick heredocs shell out
+  <<`BASH`
+  a="$(echo hello)"
+  b="$(echo world)"
+  echo "$a, $b!"
+  BASH
 It is syntactically invalid to put BEGIN within another syntactic construct, but not so for END
 -n and -p add methods to Object (or maybe Kernel or main)
   $ ruby -e 'p private_methods' | ruby -ne 'p private_methods - eval($_)'

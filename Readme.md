@@ -451,3 +451,15 @@ def s.!@() "RAWR" end
 !s     # => "RAWR"
 not s  # => "RAWR"
 ```
+
+
+November 9
+----------
+
+The `-e` flag lets you pass a program through ARGV instead of a filename containing a program.
+([link](https://twitter.com/josh_cheek/status/796497919474012160))
+
+```sh
+$ ruby -e 'puts "hello, world"'
+hello, world
+```
