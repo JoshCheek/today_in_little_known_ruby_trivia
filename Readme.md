@@ -443,7 +443,7 @@ String::AndAlso.superclass # => Symbol, Regexp
 November 7
 ----------
 
-`not` is just syntactic sugar for `!@` ([link](https://twitter.com/josh_cheek/status/795778934965207040))
+`not` is just syntactic sugar for `!@` ([link](https://twitter.com/josh_cheek/status/795778934965207040)).
 
 ```ruby
 s = ""
@@ -456,10 +456,26 @@ not s  # => "RAWR"
 November 9
 ----------
 
-The `-e` flag lets you pass a program through ARGV instead of a filename containing a program.
-([link](https://twitter.com/josh_cheek/status/796497919474012160))
+The `-e` flag lets you pass a program through ARGV instead of a filename containing a program
+([link](https://twitter.com/josh_cheek/status/796497919474012160)).
 
 ```sh
 $ ruby -e 'puts "hello, world"'
 hello, world
+```
+
+November 10
+-----------
+
+The `-n` and `-p` flags iterate over every line of input, setting it to `$_`, `-p` prints `$_` out afterwards
+([link](https://twitter.com/josh_cheek/status/796721958520033281)).
+
+```sh
+$ printf "abc\ndef\n" | ruby -n -e 'p $_'
+"abc\n"
+"def\n"
+
+$ printf "abc\ndef\n" | ruby -p -e '$_ = $_.upcase'
+ABC
+DEF
 ```
