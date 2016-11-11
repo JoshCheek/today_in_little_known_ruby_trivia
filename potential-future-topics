@@ -190,15 +190,6 @@ class can have a rescue and else keyword, too
     123                 # => 123
   end                   # => #<RuntimeError: hi>, 123
 
-# $. is the current input line
-  require 'stringio'
-  $stdin = StringIO.new("a\nb\nc")
-  $.   # => 0
-  gets # => "a\n"
-  $.   # => 1
-  gets # => "b\n"
-  $.   # => 2
-
 * `print` will print `$_` if you don't give it arguments
 * Regex setting locals
 * Binding is top of stack

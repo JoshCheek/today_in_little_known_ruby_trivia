@@ -464,6 +464,7 @@ $ ruby -e 'puts "hello, world"'
 hello, world
 ```
 
+
 November 10
 -----------
 
@@ -478,4 +479,37 @@ $ printf "abc\ndef\n" | ruby -n -e 'p $_'
 $ printf "abc\ndef\n" | ruby -p -e '$_ = $_.upcase'
 ABC
 DEF
+```
+
+
+November 11
+-----------
+
+When using `-n` or `-p`, the global variable `$.` contains the current input line number
+([link](https://twitter.com/josh_cheek/status/797149586951405568)).
+
+```sh
+$ printf "abc\ndef\nghi\n"
+abc
+def
+ghi
+
+$ printf "abc\ndef\nghi\n" | ruby -p -e '$_ = "#{$.}\t#{$_}"'
+1	abc
+2	def
+3	ghi
+```
+
+I suppose, to be fair, it's the current input line number regardless of whether you're using `-n` or `-p`,
+that's the context you would use it in, but it doesn't depend on them.
+
+```ruby
+$stdin, $stdout = IO.pipe
+puts "a\nb\nc"
+
+$.   # => 0
+gets # => "a\n"
+$.   # => 1
+gets # => "b\n"
+$.   # => 2
 ```
