@@ -513,3 +513,61 @@ $.   # => 1
 gets # => "b\n"
 $.   # => 2
 ```
+
+
+November 12
+-----------
+
+The `-l` flag will automatically strip trailing newlines from input
+([link](https://twitter.com/josh_cheek/status/797539812727201792)).
+
+```sh
+$ printf "abc\ndef\nghi\n" | ruby -ne 'puts "#{$_.inspect} #$_ #$."'
+"abc\n" abc
+ 1
+"def\n" def
+ 2
+"ghi\n" ghi
+ 3
+
+$ printf "abc\ndef\nghi\n" | ruby -l -ne 'puts "#{$_.inspect} #$_ #$."'
+"abc" abc 1
+"def" def 2
+"ghi" ghi 3
+```
+
+Here is an example of where it is useful.
+
+```sh
+$ printf "abc\ndef\nghi\n" | ruby -lne 'puts "#$_ #$."'
+abc 1
+def 2
+ghi 3
+
+$ printf "abc\ndef\nghi\n" | ruby -ne 'puts "#$_ #$."'
+abc
+ 1
+def
+ 2
+ghi
+ 3
+```
+
+
+
+November 13
+-----------
+
+The `-a` flag will split lines of input into an array stored in `$F`.
+
+November 14
+-----------
+
+When invoked without arguments, print prints `$_`
+
+November 15
+-----------
+
+A regex literal as the condition of an if statement is matched against `$_`
+
+Show both what it does in Ruby and why it's useful in a `-n` script.
