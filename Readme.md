@@ -560,16 +560,38 @@ November 13
 The `-a` flag will split lines of input into an array stored in `$F`
 ([link](https://twitter.com/josh_cheek/status/797862561131724800)).
 
-```sh
-$ printf "a b c\nd e f\ng h i\n"
-a b c
-d e f
-g h i
+Here, we can see that `$F` is an array of the line being split (it is split by the input record separator, which is whitespace by default).
 
-$ printf "a b c\nd e f\ng h i\n" | ruby -ane 'puts "(1#{$F[0]}) (2#{$F[1]}) (3#{$F[2]})"'
-(1a) (2b) (3c)
-(1d) (2e) (3f)
-(1g) (2h) (3i)
+```sh
+$ printf "a b c\nd e f\ng h i\n" | ruby -ane 'p $F'
+["a", "b", "c"]
+["d", "e", "f"]
+["g", "h", "i"]
+
+$ printf "a b c\nd e f\ng h i\n" | ruby -ane 'p $F'
+["a", "b", "c"]
+["d", "e", "f"]
+["g", "h", "i"]
+```
+
+And here is an example of how we could use this to do arbitrarily convert input.
+In this case, we're translating the output of `gem list` to list each gem and version on its own line
+instead of aggregating all the versions behind the gems.
+
+```sh
+$ gem list | tail -4
+webmock (2.1.0)
+what_weve_got_here_is_an_error_to_communicate (0.0.8, 0.0.3)
+xpath (2.0.0)
+yard (0.9.5, 0.8.7.4)
+
+$ gem list | ruby -ane '$F[1..-1].each { |ver| puts "#{$F[0]} #{ver.delete "(),"}" }' | tail -6
+webmock 2.1.0
+what_weve_got_here_is_an_error_to_communicate 0.0.8
+what_weve_got_here_is_an_error_to_communicate 0.0.3
+xpath 2.0.0
+yard 0.9.5
+yard 0.8.7.4
 ```
 
 
