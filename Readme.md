@@ -554,11 +554,24 @@ ghi
 ```
 
 
-
 November 13
 -----------
 
-The `-a` flag will split lines of input into an array stored in `$F`.
+The `-a` flag will split lines of input into an array stored in `$F`
+([link](https://twitter.com/josh_cheek/status/797862561131724800)).
+
+```sh
+$ printf "a b c\nd e f\ng h i\n"
+a b c
+d e f
+g h i
+
+$ printf "a b c\nd e f\ng h i\n" | ruby -ane 'puts "(1#{$F[0]}) (2#{$F[1]}) (3#{$F[2]})"'
+(1a) (2b) (3c)
+(1d) (2e) (3f)
+(1g) (2h) (3i)
+```
+
 
 November 14
 -----------
