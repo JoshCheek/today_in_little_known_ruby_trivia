@@ -598,7 +598,30 @@ yard 0.8.7.4
 November 14
 -----------
 
-When invoked without arguments, print prints `$_`
+`print`, when invoked without arguments, prints the global variable `$_`
+([link](https://twitter.com/josh_cheek/status/798261837271855106)).
+
+```ruby
+$_ = "a"
+print
+$_ = "b"
+print
+
+# >> ab
+```
+
+Here, we use it to filter the output of `gem list` to just show gems with 3 or more versions installed.
+
+```sh
+$ gem list | ruby -ane 'print if $F.length > 3'
+minitest (5.9.1, 5.9.0, 5.8.4, 5.8.3, 5.7.0)
+psych (2.1.1, default: 2.0.17)
+rake (11.2.2, 11.1.2, 10.5.0, 10.4.2, 10.3.2)
+rouge (1.11.1, 1.10.1, 1.9.0)
+rspec-core (3.5.4, 3.5.3, 3.5.2, 3.5.1, 3.4.4, 3.2.3)
+rspec-support (3.5.0, 3.4.1, 3.2.2)
+seeing_is_believing (3.0.1, 3.0.0, 3.0.0.beta.7)
+```
 
 November 15
 -----------
