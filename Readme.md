@@ -626,6 +626,51 @@ seeing_is_believing (3.0.1, 3.0.0, 3.0.0.beta.7)
 November 15
 -----------
 
+You can't guess what each line evaluates to!
+([link](https://twitter.com/josh_cheek/status/798658276116176896))
+
+Quiz:
+
+```ruby
+RUBY_VERSION        # => "2.3.1"
+true if true        # =>
+true if false       # =>
+true if 0           # =>
+true if nil         # =>
+true if ""          # =>
+true if :""         # =>
+true if //          # =>
+true if []          # =>
+true if {}          # =>
+true if 0...1       # =>
+true if 1..2        # =>
+if 1..2; true; end  # =>
+if //; true; end    # =>
+```
+
+Answers:
+
+```ruby
+RUBY_VERSION        # => "2.3.1"
+true if true        # => true
+true if false       # => nil
+true if 0           # => true
+true if nil         # => nil
+true if ""          # => true
+true if :""         # => true
+true if //          # => nil
+true if []          # => true
+true if {}          # => true
+true if 0...1       # => true
+true if 1..2        # => nil
+if 1..2; true; end  # => true
+if //; true; end    # => nil
+```
+
+
+November 16
+-----------
+
 A regex literal as the condition of an if statement is matched against `$_`
 
 Show both what it does in Ruby and why it's useful in a `-n` script.
