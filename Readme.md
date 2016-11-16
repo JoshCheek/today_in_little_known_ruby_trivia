@@ -681,7 +681,7 @@ true if /a/  # => true
 true if /b/  # => nil
 ```
 
-Eg you can use it to replace grep as in the SS below.
+Eg you can use it to replace grep as in the examples below.
 The nice thing about this is we get to use Ruby's regexes and can do a lot more than just filtering.
 
 ```ruby
