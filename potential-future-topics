@@ -295,3 +295,9 @@ Regexp options
 
 ruby ships with obfuscated programs, including a video showing mame's music box
   (in sample/trickYEAR)
+
+Regexp /o flag
+  3.times do |i|  # => 3
+    /a#{i}b/      # => /a0b/, /a1b/, /a2b/
+    /a#{i}b/o     # => /a0b/, /a0b/, /a0b/
+  end             # => 3

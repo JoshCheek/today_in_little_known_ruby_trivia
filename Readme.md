@@ -671,6 +671,29 @@ if //; true; end    # => nil
 November 16
 -----------
 
-A regex literal as the condition of an if statement is matched against `$_`
+A regex **literal** as the condition of an if statement is matched against `$_`
 
-Show both what it does in Ruby and why it's useful in a `-n` script.
+([link](https://twitter.com/josh_cheek/status/799010916088037376))
+
+```ruby
+$_ = 'a'
+true if /a/  # => true
+true if /b/  # => nil
+```
+
+Eg you can use it to replace grep as in the SS below.
+The nice thing about this is we get to use Ruby's regexes and can do a lot more than just filtering.
+
+```ruby
+$ printf "ab\nbc\nac\n" | ruby -ne 'print if /a/'
+ab
+ac
+
+$ printf "ab\nbc\nac\n" | ruby -ne 'print if /b/'
+ab
+bc
+
+$ printf "ab\nbc\nac\n" | ruby -ne 'print if /c/'
+bc
+ac
+```
