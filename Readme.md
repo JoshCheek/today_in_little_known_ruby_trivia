@@ -672,8 +672,7 @@ November 16
 -----------
 
 A regex **literal** as the condition of an if statement is matched against `$_`
-
-([link](https://twitter.com/josh_cheek/status/799010916088037376))
+([link](https://twitter.com/josh_cheek/status/799010916088037376)).
 
 ```ruby
 $_ = 'a'
@@ -696,4 +695,37 @@ bc
 $ printf "ab\nbc\nac\n" | ruby -ne 'print if /c/'
 bc
 ac
+```
+
+
+November 17
+-----------
+
+A numerical range **literal** as the condition of an if statement at the top-level (eg not in a method)
+is a flip-flop that is matching against `$.`, the current line number. It becomes true when the first
+number matches `$.` and false when the second number matches `$.`
+
+```ruby
+$. = 2         # => 2
+true if 1..10  # => nil
+true if 2..10  # => true
+true if 3..10  # => nil
+```
+
+Here we use it to filter lines of input based on their line number,
+without this, we would have to learn sed or awk.
+
+```sh
+$ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | ruby -ne 'print if 2..4'
+SECOND
+THIRD
+FOURTH
+```
+
+For comparison, the Ruby, sed, and awk implementations of the above:
+
+```sh
+$ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | ruby -ne 'print if 2..4'
+$ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | sed -ne '2,4p'
+$ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | awk '2 <= NR && NR<=4'
 ```
