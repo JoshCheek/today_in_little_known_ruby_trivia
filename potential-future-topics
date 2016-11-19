@@ -54,8 +54,6 @@ backtick heredocs shell out
   echo "$a, $b!"
   BASH
 It is syntactically invalid to put BEGIN within another syntactic construct, but not so for END
--n and -p add methods to Object (or maybe Kernel or main)
-  $ ruby -e 'p private_methods' | ruby -ne 'p private_methods - eval($_)'
 ivars don't have to begin with @ (though there's no way to show this without writing a C extension)
 if statement ordering of local variables (IMO, this is broken)
 BasicObject actually inherits from `false`, not `nil` (IIRC)

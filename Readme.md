@@ -729,3 +729,23 @@ $ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | ruby -ne 'print if 2..4'
 $ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | sed -ne '2,4p'
 $ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | awk '2 <= NR && NR<=4'
 ```
+
+
+November 18
+-----------
+
+The -n and -p flags add private methods to main that implicitly operate on `$_`
+([link](https://twitter.com/josh_cheek/status/799926885790715905)).
+
+
+```
+$ ruby -e 'p private_methods' | ruby -ne 'p private_methods - eval($_)'
+[:chop, :sub, :gsub, :chomp]
+
+$ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | ruby -pe 'gsub "I", "-"'
+F-RST
+SECOND
+TH-RD
+FOURTH
+F-FTH
+```
