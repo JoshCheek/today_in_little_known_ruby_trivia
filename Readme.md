@@ -749,3 +749,42 @@ TH-RD
 FOURTH
 F-FTH
 ```
+
+November 19
+-----------
+
+`-n` an `-p` will pull their input from filenames if they were provided
+([link](https://twitter.com/josh_cheek/status/800459598469603328)).
+
+```sh
+# Create 3 files
+$ printf "file-A line-1\nfile-A line-2\n" > fa
+$ printf "file-B line-1\nfile-B line-2\n" > fb
+$ printf "file-C line-1\nfile-C line-2\n" > fc
+
+# Use them as input to the Ruby program
+$ ruby -ne 'p line: $_' fa fb fc
+{:line=>"file-A line-1\n"}
+{:line=>"file-A line-2\n"}
+{:line=>"file-B line-1\n"}
+{:line=>"file-B line-2\n"}
+{:line=>"file-C line-1\n"}
+{:line=>"file-C line-2\n"}
+```
+
+
+November 20
+-----------
+
+`ARGF` is the object implementing `-n` and `-p` it has useful info beyond the globals.
+
+
+```
+printf "file-A line-1\nfile-A line-2\n" > fa
+
+printf "file-B line-1\nfile-B line-2\n" > fb
+
+printf "file-C line-1\nfile-C line-2\n" > fc
+
+ruby -ne 'p line: $_, filename: ARGF.filename, file_lineno: ARGF.file.lineno' fa fb fc | pygmentize -l ruby
+```
