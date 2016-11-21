@@ -704,6 +704,7 @@ November 17
 A numerical range **literal** as the condition of an if statement at the top-level (eg not in a method)
 is a flip-flop that is matching against `$.`, the current line number. It becomes true when the first
 number matches `$.` and false when the second number matches `$.`
+([link](https://twitter.com/josh_cheek/status/799276498494648320)).
 
 ```ruby
 $. = 2         # => 2
@@ -731,7 +732,7 @@ $ printf "FIRST\nSECOND\nTHIRD\nFOURTH\nFIFTH\n" | awk '2 <= NR && NR<=4'
 ```
 
 
-November 18
+November 19
 -----------
 
 The -n and -p flags add private methods to main that implicitly operate on `$_`
@@ -750,7 +751,7 @@ FOURTH
 F-FTH
 ```
 
-November 19
+November 20
 -----------
 
 `-n` an `-p` will pull their input from filenames if they were provided
@@ -773,18 +774,26 @@ $ ruby -ne 'p line: $_' fa fb fc
 ```
 
 
-November 20
+November 21
 -----------
 
-`ARGF` is the object implementing `-n` and `-p` it has useful info beyond the globals.
+`ARGF` is the object implementing `-n` and `-p`, it has useful info not contained in globals
+([link](https://twitter.com/josh_cheek/status/800823280043180032)).
 
-
+```sh
+$ printf "file-A line-1\nfile-A line-2\n" > fa
+$ printf "file-B line-1\nfile-B line-2\n" > fb
+$ printf "file-C line-1\nfile-C line-2\n" > fc
+$ ruby -ne 'p [$., ARGF.filename, ARGF.file.lineno, $_]' fa fb fc
+[1, "fa", 1, "file-A line-1\n"]
+[2, "fa", 2, "file-A line-2\n"]
+[3, "fb", 1, "file-B line-1\n"]
+[4, "fb", 2, "file-B line-2\n"]
+[5, "fc", 1, "file-C line-1\n"]
+[6, "fc", 2, "file-C line-2\n"]
 ```
-printf "file-A line-1\nfile-A line-2\n" > fa
 
-printf "file-B line-1\nfile-B line-2\n" > fb
+November 22
+-----------
 
-printf "file-C line-1\nfile-C line-2\n" > fc
-
-ruby -ne 'p line: $_, filename: ARGF.filename, file_lineno: ARGF.file.lineno' fa fb fc | pygmentize -l ruby
-```
+BEGIN / END
