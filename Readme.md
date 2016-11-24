@@ -793,7 +793,60 @@ $ ruby -ne 'p [$., ARGF.filename, ARGF.file.lineno, $_]' fa fb fc
 [6, "fc", 2, "file-C line-2\n"]
 ```
 
-November 22
+
+November 23
 -----------
 
-BEGIN / END
+`BEGIN` blocks run before anything else in your program, `END` blocks run after
+([link](https://twitter.com/josh_cheek/status/801626228163747840)).
+
+```ruby
+BEGIN { puts "begin-1" }
+END   { puts "end-1" }
+
+puts "within"
+
+BEGIN { puts "begin-2" }
+END   { puts "end-2" }
+
+# >> begin-1
+# >> begin-2
+# >> within
+# >> end-2
+# >> end-1
+```
+
+
+November 24
+-----------
+
+`BEGIN` and `END` blocks only run once.
+
+```
+$ printf "abc\ndef\nghi\n" | ruby -n -e '
+     BEGIN { puts "Lines:" }
+     print("  ", $_)
+     END   { puts "Total:\n  #$." }
+   '
+Lines:
+  abc
+  def
+  ghi
+Total:
+  3
+```
+
+
+November 25
+-----------
+
+`BEGIN` and `END` store local variables in their containing scope.
+
+```
+$ printf "333\n55555\n22\n4444\n" | ruby -ln -e '
+  BEGIN { longest = "" }
+  longest = $_ if longest.length < $_.length
+  END   { puts longest }
+'
+55555
+```
