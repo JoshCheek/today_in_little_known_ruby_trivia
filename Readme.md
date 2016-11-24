@@ -801,19 +801,17 @@ November 23
 ([link](https://twitter.com/josh_cheek/status/801626228163747840)).
 
 ```ruby
-BEGIN { puts "begin-1" }
-END   { puts "end-1" }
+BEGIN { p 1 }
+END   { p 2 }
+p 3
+BEGIN { p 4 }
+END   { p 5 }
 
-puts "within"
-
-BEGIN { puts "begin-2" }
-END   { puts "end-2" }
-
-# >> begin-1
-# >> begin-2
-# >> within
-# >> end-2
-# >> end-1
+# >> 1
+# >> 4
+# >> 3
+# >> 5
+# >> 2
 ```
 
 
