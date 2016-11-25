@@ -818,7 +818,8 @@ END   { p 5 }
 November 24
 -----------
 
-`BEGIN` and `END` blocks only run once.
+`BEGIN` and `END` blocks run only once (they are intended to be used in -n/-p mode)
+([link](https://twitter.com/josh_cheek/status/802015687493451776)).
 
 ```
 $ printf "abc\ndef\nghi\n" | ruby -n -e '
