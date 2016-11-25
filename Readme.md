@@ -840,6 +840,8 @@ November 25
 -----------
 
 `BEGIN` and `END` store local variables in their containing scope.
+This lets them initialize variables for use in `-n` / `-p` mode
+([link](https://twitter.com/josh_cheek/status/802291041806192640)).
 
 ```
 $ printf "333\n55555\n22\n4444\n" | ruby -ln -e '
