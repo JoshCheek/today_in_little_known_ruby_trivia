@@ -314,6 +314,4 @@ Regexp /o flag
     /a#{i}b/o     # => /a0b/, /a0b/, /a0b/
   end             # => 3
 
-Cryptic global variables have english names
-  https://github.com/ruby/ruby/blob/4aefcbc5327be0f66ba8b1d9494c1573e52ab839/lib/English.rb#L23-L47
 Exception#cause

@@ -851,3 +851,27 @@ $ printf "333\n55555\n22\n4444\n" | ruby -ln -e '
 '
 55555
 ```
+
+
+November 26
+-----------
+
+Ruby's cryptic Perl variables have English names
+([link](https://twitter.com/josh_cheek/status/802628880477650944)).
+
+Here is a list: https://github.com/ruby/ruby/blob/4aefcbc5327be0f66ba8b1d9494c1573e52ab839/lib/English.rb#L23-L47
+
+
+```sh
+# In English
+$ printf "ABC\nDEF\nGHI\n" | ruby -r english -ne 'puts "#$INPUT_LINE_NUMBER #$LAST_READ_LINE"'
+1 ABC
+2 DEF
+3 GHI
+
+# In Perl
+$ printf "ABC\nDEF\nGHI\n" | ruby -r english -ne 'puts "#$. #$_"'
+1 ABC
+2 DEF
+3 GHI
+```
