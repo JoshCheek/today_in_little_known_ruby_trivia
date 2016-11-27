@@ -4,7 +4,6 @@ NameError::message
 at_exit is a thing (probably the same as END, tbh)
 you can use "then" in if statements and rescue statements
 rescue multiple types
-BEGIN blocks can only be at the toplevel. END blocks can be anywhere.
 you can pass keywords before or after kwrest, which dictates what overrides what
   def h(hash)
     hash.sort.to_h
@@ -60,7 +59,6 @@ globals
   error handling: $! / $@
   Regexp
 __END__ / DATA
-BEGIN / END
 backtick heredocs shell out
   <<`BASH`
   a="$(echo hello)"

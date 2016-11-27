@@ -875,3 +875,20 @@ $ printf "ABC\nDEF\nGHI\n" | ruby -r english -ne 'puts "#$. #$_"'
 2 DEF
 3 GHI
 ```
+
+
+November 27
+-----------
+
+The opposite of a semicolon is a backslash, it lets you continue on the next line
+([link](https://twitter.com/josh_cheek/status/802994776001966080)).
+
+```ruby
+# turned into 2 expressions
+5     # => 5
+ - 2  # => -2
+
+# expression is continued on next line
+5 \
+ - 2  # => 3
+```
