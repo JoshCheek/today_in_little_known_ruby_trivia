@@ -909,3 +909,23 @@ Adjacent single/double quoted string literals are concatenated.
 5 \
   - 2  # => 3
 ```
+
+
+November 29
+-----------
+
+Along with `rescue` and `ensure`, there is `else`,
+which runs if the body doesn't explode
+([link](https://twitter.com/josh_cheek/status/803738733098868736)).
+
+```ruby
+begin
+  raise if fork    # => nil
+rescue
+  $path = :rescue  # => :rescue
+else
+  $path = :else    # => :else
+ensure
+  $path            # => :rescue, :else
+end                # => :rescue, :else
+```
