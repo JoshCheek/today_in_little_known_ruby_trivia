@@ -892,3 +892,20 @@ The opposite of a semicolon is a backslash, it lets you continue on the next lin
 5 \
  - 2  # => 3
 ```
+
+
+November 28
+-----------
+
+Adjacent single/double quoted string literals are concatenated.
+([link](https://twitter.com/amention/status/803707529956093953)).
+
+```ruby
+# turned into 2 expressions
+5      # => 5
+  - 2  # => -2
+
+# expression is continued on next line
+5 \
+  - 2  # => 3
+```
