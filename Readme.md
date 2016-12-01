@@ -948,3 +948,13 @@ ensure
   4      # => 4
 end      # => 3
 ```
+
+
+December 1
+----------
+
+One of the MRI benchmarks is [Optcarrot](https://github.com/mame/optcarrot), a Nintendo emulator written in pure Ruby.
+This is part of their goal to make MRI 3x faster by version 3.0
+([link](https://twitter.com/josh_cheek/status/804413213773176832)).
+
+![Screenshot of Optcarrot NES emulator](optcarrot.png)
