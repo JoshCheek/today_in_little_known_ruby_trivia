@@ -191,15 +191,6 @@ The most carets you can get in a row is 3
   end           # => :^
   %^^^%^^       # => nil
 
-class can have a rescue and else keyword, too
-  class A
-    raise "hi" if fork  # => nil
-  rescue
-    $!                  # => #<RuntimeError: hi>
-  else
-    123                 # => 123
-  end                   # => #<RuntimeError: hi>, 123
-
 * `print` will print `$_` if you don't give it arguments
 * Regex setting locals
 * Binding is top of stack
@@ -313,3 +304,19 @@ Regexp /o flag
   end             # => 3
 
 Exception#cause
+There is a WeakReferece for making a variable to track an object that won't prevent GC
+  require 'weakref'
+
+  # Garbage collected b/c no one is tracking the object
+  weak = WeakRef.new("GC me!")
+  GC.start
+  weak.weakref_alive? # => nil
+
+  # Not garbage collected b/c we have a var tracking the object
+  weak = WeakRef.new(REFERENCE="Don't GC me!")
+  GC.start
+  weak.weakref_alive? # => true
+
+  # We can use it like a normal reference
+  # but keep in mind, it could be GC'd at any time
+  weak # => "Don't GC me!"

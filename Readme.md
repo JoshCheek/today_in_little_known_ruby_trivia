@@ -929,3 +929,22 @@ ensure
   $path            # => :rescue, :else
 end                # => :rescue, :else
 ```
+
+
+November 30
+-----------
+
+The `class` keyword supports a rescue/else/ensure clause
+([link](https://twitter.com/josh_cheek/status/804203533100781568)).
+
+```ruby
+class C
+  1      # => 1
+rescue
+  2
+else
+  3      # => 3
+ensure
+  4      # => 4
+end      # => 3
+```
