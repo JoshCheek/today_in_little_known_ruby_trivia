@@ -269,7 +269,8 @@ The 3 styles of heredoc quoting
 Ruby's heredocuments allow you to specify whether they should behave like
 single or double quoted strings. You can do this by wrapping the delimiter
 in single or double quotes. This is also useful if you want a delimiter
-that contains otherwise invalid characters like spaces and dots.
+that contains otherwise invalid characters like spaces and dots
+([eg](https://github.com/JoshCheek/seeing_is_believing/blob/master/seeing_is_believing.gemspec#L82)).
 
 ```ruby
 <<HERE.upcase  # => "HERE DOC\n"
