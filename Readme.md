@@ -958,3 +958,30 @@ This is part of their goal to make MRI 3x faster by version 3.0
 ([link](https://twitter.com/josh_cheek/status/804413213773176832)).
 
 ![Screenshot of Optcarrot NES emulator](optcarrot.png)
+
+
+December 2
+----------
+
+There are 15 string literals. For histories, nuances, and all 15 examples, see
+[15_string_literals.md](15_string_literals.md),
+([link](https://twitter.com/josh_cheek/status/804709239189110785)).
+
+```ruby
+# Character literal
+?c  # => "c"
+
+# Single and Double quotes
+"double quotes"  # => "double quotes"
+'single quotes'  # => "single quotes"
+
+# Three Perl-style quotes
+%Q(percent-Q)  # => "percent-Q"
+%q(percent-q)  # => "percent-q"
+%(percent)     # => "percent"
+
+# 9 types of heredocument
+<<HERE  # => "See the \"more info\" link for the other 8 styles\n"
+See the "more info" link for the other 8 styles
+HERE
+```
