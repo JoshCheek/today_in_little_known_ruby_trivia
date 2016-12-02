@@ -13,7 +13,7 @@ Character literal
 
 It used to be that Ruby used numbers to represent characters, like in C.
 In that case, it was convenient to have a literal that would let you type
-the character and get the number back out (you can see this these values
+the character and get the number back out (you can see these values
 with `String#ord`).
 
 When 1.9 rolled out, they switched to single character strings, so it
@@ -116,7 +116,7 @@ Keeping in mind that this came from Perl, in Perl, `q` was a single quote
 and `qq` was a double, the number of q's matched the number of quotes.
 In ruby, they only support a single character, so instead of two q's,
 they capitalized it. You can think of it like a capital "Q" being
-mroe quoted than a lower-case "q", and double quotes are more quoted than single.
+more quoted than a lower-case "q", and double quotes are more quoted than single.
 
 ```ruby
 a = 1
@@ -187,7 +187,7 @@ HERE
 ```
 
 These also come from Perl, and probaly came from the shell before that.
-You can see they make a lot of sense in bash, since Bash is line based and doesn't
+You can see they make a lot of sense in Bash, since Bash is line based and doesn't
 handle multi-line inputs well, how do you provide a multi-line input? Heredocuments
 provide a reasonable answer to this:
 
@@ -253,13 +253,13 @@ from the contents of the string, as well:
 def string
   <<~HERE
   The "HERE" down below can be indented
-  because of the "-" after the "<<"
+  because of the "~" after the "<<"
   HERE
 end
 
 string
 # => "The \"HERE\" down below can be indented\n" +
-#    "because of the \"-\" after the \"<<\"\n"
+#    "because of the \"~\" after the \"<<\"\n"
 ```
 
 
