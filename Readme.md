@@ -985,3 +985,24 @@ There are 15 string literals. For histories, nuances, and all 15 examples, see
 See the "more info" link for the other 8 styles
 HERE
 ```
+
+
+December 3
+----------
+
+Backticks around a heredoc delimiter cause it to run in the shell
+([link](https://twitter.com/josh_cheek/status/805103992149786624)).
+
+```ruby
+puts <<`SHELL`
+  echo "program: $0"
+  echo "pid:     $$"
+  echo "ppid:    $PPID"
+  echo "dir:     $PWD"
+SHELL
+
+# >> program: sh
+# >> pid:     50417
+# >> ppid:    50416
+# >> dir:     /
+```

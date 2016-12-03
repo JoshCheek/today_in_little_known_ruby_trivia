@@ -59,12 +59,6 @@ globals
   error handling: $! / $@
   Regexp
 __END__ / DATA
-backtick heredocs shell out
-  <<`BASH`
-  a="$(echo hello)"
-  b="$(echo world)"
-  echo "$a, $b!"
-  BASH
 It is syntactically invalid to put BEGIN within another syntactic construct, but not so for END
 ivars don't have to begin with @ (though there's no way to show this without writing a C extension)
 if statement ordering of local variables (IMO, this is broken)
