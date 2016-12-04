@@ -1006,3 +1006,23 @@ SHELL
 # >> ppid:    50416
 # >> dir:     /
 ```
+
+
+December 4
+----------
+
+The first 3 ivars are stored in the object, after that they get moved to a hash
+([source code](https://github.com/ruby/ruby/blob/f5ef84cb5eae9948e7011a9e6020dd4a8aeb246c/include/ruby/ruby.h#L872-L889))
+([link](https://twitter.com/josh_cheek/status/805551333558325248)).
+
+
+```ruby
+require 'objspace'
+8.times do |n|
+  #           3 or fewer ivars? stored in the obj    more? in a hash
+  #                                /------^------\  /------^------\
+  instance_variables.length    # => 0,  1,  2,  3,  4,  5,  6,  7
+  ObjectSpace.memsize_of(self) # => 40, 40, 40, 40, 80, 80, 96, 96
+  instance_variable_set "@i#{n}", nil
+end
+```
