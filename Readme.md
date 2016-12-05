@@ -1026,3 +1026,20 @@ require 'objspace'
   instance_variable_set "@i#{n}", nil
 end
 ```
+
+
+December 4
+----------
+
+You can discard arguments with an asterisk,
+this is a special case of variable argument lists,
+[here](https://github.com/ruby/ruby/blob/956aa0102e89bd39adb476f0eb67c7c32461f475/parse.y#L4797),
+([link](https://twitter.com/josh_cheek/status/805875473972600837)).
+
+```ruby
+def m(*)
+end
+m      # => nil
+m 1    # => nil
+m 1, 2 # => nil
+```

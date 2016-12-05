@@ -48,7 +48,6 @@ You can use `then` in a lot of places
   end
 
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
-adjacent string literals are concatenated
 frozen_string_literal: true
 how encodings are sorted out when concatenating strings of different encodings
 you can define your own pretty inspect for working with pp (eg useful in pry and SiB)
@@ -59,48 +58,22 @@ globals
   error handling: $! / $@
   Regexp
 __END__ / DATA
-It is syntactically invalid to put BEGIN within another syntactic construct, but not so for END
+It is syntactically invalid to put BEGIN within another syntactic construct (except another BEGIN), but not so for END
 ivars don't have to begin with @ (though there's no way to show this without writing a C extension)
 if statement ordering of local variables (IMO, this is broken)
 BasicObject actually inherits from `false`, not `nil` (IIRC)
-If a class has only three instance variables, they are stored in the class itself, on the forth, they get copied over to a hash table
 various easter eggs (eg goto)
 `next` means `return` in a block.
 in a block, `break` returns to where the block was defined (this has an obvious fail-case, save the block and call it later, which gives a LocalJumpError)
 `redo` / `retry`
 That whole weird include thing where there's like multiple include methods and you can define what it means to include your object
-Giving a regex to an if statement matches it against `$_`
-  # You'd think these two would be the same
-  r = /a/          # => /a/
-  :whatevz if r    # => :whatevz
-  :whatevz if /a/  # => nil
-
-  # But Perl was one of Ruby's influences
-  $_ = "a"         # => "a"
-  :whatevz if /a/  # => :whatevz
-  :whatevz if /A/  # => nil
 There is no such thing as class methods, they're just singleton methods whose object happens to be a class
 You can get a heap dump
 RbConfig
 RubyVM
-Proc.new without a block https://twitter.com/wvmdltr/status/794196790673281024
-
-`else` on `rescue`
-  def a
-    yield  # => 1
-  rescue
-    2      # => 2
-  else
-    3      # => 3
-  ensure
-    4      # => 4, 4
-  end      # => :a
-
-  a { 1 }      # => 3
-  a { raise }  # => 2
-
+Proc.new/lambda/proc without a block https://twitter.com/wvmdltr/status/794196790673281024
 You CAN'T write code in a singleton method target definition!
-You CAN't define a class inside a method body
+You CAN'T define a class inside a method body
 
 Safe navigation, operator method names, and block argument can be used together
 
@@ -118,26 +91,6 @@ Flip flops
   # Thus, the range from empty string to empty string
   # may include 5 dots in a row
   %.....%..  # => ""...""
-
-
-You can create programs whose bodies are '%'*(3+n*4)
-  # Percent syntax lets you choose the delimiter
-  %.abc.  # => "abc"
-  %%abc%  # => "abc"
-  %%%     # => ""
-
-  # The percent method on a String is an alias for sprintf
-  # and it ignores args it doesn't need
-  "I have %s chromosomes" % "23"  # => "I have 23 chromosomes"
-  "I have    chromosomes" % "23"  # => "I have    chromosomes"
-  ""                      % ""    # => ""
-  %%%                     % %%%   # => ""
-
-  # So, after the first 3 percents, you can always add 4 more
-  %%%                                                          # => ""
-  %%% % %%%                                                    # => ""
-  %%% % %%% % %%%                                              # => ""
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  # => ""
 
 There are three places you can use an ampersand in a method call
   # safe navigation operator won't invoke a method on nil
@@ -185,10 +138,8 @@ The most carets you can get in a row is 3
   end           # => :^
   %^^^%^^       # => nil
 
-* `print` will print `$_` if you don't give it arguments
 * Regex setting locals
 * Binding is top of stack
-* 3 ivars, they'll be stored directly on the object
 * rescue on runtime, not all exceptions
 * `ruby -e 'x=y=false; p(y ?x :x)'` Now delete either the `x=` or the `y=` (or both) (got this one from Yusuke Endoh)
 * `if (a=1); a; end` vs `1 if a=1`
@@ -212,7 +163,7 @@ The most carets you can get in a row is 3
   end
   ```
 * `A B`, syntactically, `A` is a method, `B` is a constant
-* What will this code do? `class BasicObject; Object; end`
+* What does this code evaluate to? `class BasicObject; Object; end`
 * What does this code evaluate to? `Class.singleton_class.superclass.superclass.superclass.superclass`
 * Class and method syntax
   A = Class.new  # => A
@@ -228,8 +179,8 @@ The most carets you can get in a row is 3
 
   A B        # => "Method A(B)"
   A ::B      # => "Method A(B)"
-  A:: B      # => B
   A :: B     # => "Method A(B)"
+  A:: B      # => B
   A:: B ::C  # => "Method A.B(C)"
 
 Both `class_eval` and `instance_eval` set self to the class, but the `def` keyword for `instance_eval` defines the method on its singleton class.
@@ -314,3 +265,28 @@ There is a WeakReferece for making a variable to track an object that won't prev
   # We can use it like a normal reference
   # but keep in mind, it could be GC'd at any time
   weak # => "Don't GC me!"
+taint
+freeze
+(other flags?)
+flonum
+warning levels
+"ab %{c} d" % {c: 1}  # => "ab 1 d"
+Multiple codepoints "\u{123 456}"  # => "ģі"
+sprintf referring to variables by ordinal
+
+You can dump an object to JSON
+  require 'json'
+  require 'objspace'
+  JSON.parse ObjectSpace.dump "abc"
+  # => {"address"=>"0x007f84c38ecfc0",
+  #     "type"=>"STRING",
+  #     "class"=>"0x007f84c38c00d8",
+  #     "embedded"=>true,
+  #     "bytesize"=>3,
+  #     "value"=>"abc",
+  #     "encoding"=>"UTF-8",
+  #     "memsize"=>40,
+  #     "flags"=>{"wb_protected"=>true}}
+You can dump the whole heap
+You can use marshal to build invalid ranges
+  Marshal.load("\x04\bo:\nRange\b:\texclF:\nbegini\x06:\bend0") # => 1..nil
