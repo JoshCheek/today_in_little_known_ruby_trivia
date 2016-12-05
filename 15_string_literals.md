@@ -150,7 +150,8 @@ This is especially useful when you want to obfuscate some code since
 %%%     # => ""
 ```
 
-And it's also a synonym for sprintf, so you can do this:
+And `String#%` is also a method that renders a format string, like sprintf,
+so you can do this:
 
 ```ruby
 sprintf "a%s", "b"  # => "ab"
@@ -160,6 +161,8 @@ sprintf "a",   "b"  # => "a"
 %%% % %%%           # => ""
 %%%%%%%             # => ""
 %%%%%%%%%%%         # => ""
+%%%%%%%%%%%%%%%     # => ""
+%%%%%%%%%%%%%%%%%%% # => ""
 ```
 
 Which lets you make fun tweets like [this](https://twitter.com/josh_cheek/status/658032347887996928)
