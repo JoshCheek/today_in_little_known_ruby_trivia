@@ -290,3 +290,19 @@ You can dump an object to JSON
 You can dump the whole heap
 You can use marshal to build invalid ranges
   Marshal.load("\x04\bo:\nRange\b:\texclF:\nbegini\x06:\bend0") # => 1..nil
+You can run a binary with your Ruby of preference with `ruby -S binary`
+warn_indent
+  $ ruby -w -e '
+     def m
+       end
+     '
+  -e:3: warning: mismatched indentations at 'end' with 'def' at 2
+
+  $ ruby -w -e '# -*- warn_indent: false -*-
+     def m
+       end
+     '
+warn_past_scope
+  (you have to turn on the compiler directive to get this feature)
+  ruby -w -e '# -*- warn_past_scope: false -*-
+     [1, 2, 3].sample.tap { |rand| puts "Random value: #{rand}" }; puts "Another random value: #{rand}"'

@@ -1043,3 +1043,27 @@ m      # => nil
 m 1    # => nil
 m 1, 2 # => nil
 ```
+
+
+December 5
+----------
+
+The RUBYOPT environment variable lets you add flags to future invocations of Ruby.
+Eg, this is how Bundler [works](https://github.com/bundler/bundler/blob/1f10c7f07fdbe5b664272d54657b5687bc881810/lib/bundler.rb#L268)
+([link](https://twitter.com/josh_cheek/status/806210917205770240)).
+
+```ruby
+$ echo 'puts "pre"'     > pre.rb
+$ echo 'puts "program"' > program.rb
+
+# Without RUBYOPT set
+$ ruby program.rb
+program
+
+$ export RUBYOPT='-r ./pre.rb'
+
+# With RUBYOPT set
+$ ruby program.rb
+pre
+program
+```
