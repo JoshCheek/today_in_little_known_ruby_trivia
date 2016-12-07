@@ -1067,3 +1067,20 @@ $ ruby program.rb
 pre
 program
 ```
+
+
+December 6
+----------
+
+You can provide an arbitrary backtrace when you raise an exception
+([link](https://twitter.com/josh_cheek/status/806544375031402497)).
+
+```ruby
+begin
+  raise TypeError, "hello", ['file1.rb', 'file2.rb']
+rescue
+  $!.class     # => TypeError
+  $!.message   # => "hello"
+  $!.backtrace # => ["file1.rb", "file2.rb"]
+end
+```
