@@ -1028,7 +1028,7 @@ end
 ```
 
 
-December 4
+December 5
 ----------
 
 You can discard arguments with an asterisk,
@@ -1045,7 +1045,7 @@ m 1, 2 # => nil
 ```
 
 
-December 5
+December 6
 ----------
 
 The RUBYOPT environment variable lets you add flags to future invocations of Ruby.
@@ -1069,7 +1069,7 @@ program
 ```
 
 
-December 6
+December 7
 ----------
 
 You can provide an arbitrary backtrace when you raise an exception
@@ -1082,5 +1082,19 @@ rescue
   $!.class     # => TypeError
   $!.message   # => "hello"
   $!.backtrace # => ["file1.rb", "file2.rb"]
+end
+```
+
+
+December 8
+----------
+
+The /o flag caches a regex after compiling it the first time,
+and repeatedly reuses that ([link](https://twitter.com/josh_cheek/status/806885831151648773)).
+
+```ruby
+3.times do |n|
+  /#{n}/  # => /0/, /1/, /2/
+  /#{n}/o # => /0/, /0/, /0/
 end
 ```
