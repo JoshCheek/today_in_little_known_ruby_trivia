@@ -1098,3 +1098,24 @@ and repeatedly reuses that ([link](https://twitter.com/josh_cheek/status/8068858
   /#{n}/o # => /0/, /0/, /0/
 end
 ```
+
+
+December 10
+-----------
+
+You can spell 425 words in regex flags [here](https://github.com/ruby/ruby/blob/42a677c895f82bcd611db2773fbe68b0558b142d/re.c#L332-L355),
+and [here](https://github.com/ruby/ruby/blob/42a677c895f82bcd611db2773fbe68b0558b142d/re.c#L299-L318)
+([link](https://twitter.com/josh_cheek/status/807571405877428224)).
+
+```ruby
+/here's the/mission
+/my/minion
+%r/idiculous/
+%r/egex/emission
+
+# here's 425 words you can use
+File.readlines('/usr/share/dict/words')
+    .each(&:chomp!)
+    .reject { |w| (w.chars - %w[m e o i n u s x]).any? }
+    .length # => 425
+```
