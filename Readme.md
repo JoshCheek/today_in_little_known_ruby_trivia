@@ -1119,3 +1119,21 @@ File.readlines('/usr/share/dict/words')
     .reject { |w| (w.chars - %w[m e o i n u s x]).any? }
     .length # => 425
 ```
+
+
+December 11
+-----------
+
+Fixnums are not in-memory instances. The pointer to their address actually stores their value!
+This differnece won't be visible soon since they're merging the two into `Integer`
+([link](https://twitter.com/josh_cheek/status/808007021186469893)).
+
+```ruby
+# 1 bit says this is a value not a reference
+# 1 bit says whether its pos or neg
+# 1 value used to store 0
+(2**62  ).class # => Bignum
+(2**62-1).class # => Fixnum
+
+RUBY_VERSION    # => "2.3.1"
+```
