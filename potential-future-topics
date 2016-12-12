@@ -245,7 +245,6 @@ There is a WeakReferece for making a variable to track an object that won't prev
 taint
 freeze
 (other flags?)
-flonum
 warning levels
 "ab %{c} d" % {c: 1}  # => "ab 1 d"
 Multiple codepoints "\u{123 456}"  # => "ģі"
@@ -283,3 +282,5 @@ warn_past_scope
   (you have to turn on the compiler directive to get this feature)
   ruby -w -e '# -*- warn_past_scope: false -*-
      [1, 2, 3].sample.tap { |rand| puts "Random value: #{rand}" }; puts "Another random value: #{rand}"'
+
+Readline support baked in

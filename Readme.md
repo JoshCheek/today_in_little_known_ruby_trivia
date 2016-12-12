@@ -1137,3 +1137,24 @@ This differnece won't be visible soon since they're merging the two into `Intege
 
 RUBY_VERSION    # => "2.3.1"
 ```
+
+
+December 12
+-----------
+
+In MRI, most floats, like Fixnums, are stored within the value of their reference.
+This is called a "flonum" https://github.com/ruby/ruby/commit/b3b5e62
+([link](https://twitter.com/josh_cheek/status/808419036153442306)).
+
+Credit to Chris Seaton for [pointing it out](https://twitter.com/ChrisGSeaton/status/808010339686105089).
+
+
+```ruby
+# 1st is same object b/c its reference is really its encoded value
+# 2nd is different object b/c it's allocated in memory
+1.0e-76.equal? 1.0e-76  # => true
+1.0e-77.equal? 1.0e-77  # => false
+
+# MRI 2.3
+RUBY_DESCRIPTION  # => "ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15]"
+```
