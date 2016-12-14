@@ -1158,3 +1158,51 @@ Credit to Chris Seaton for [pointing it out](https://twitter.com/ChrisGSeaton/st
 # MRI 2.3
 RUBY_DESCRIPTION  # => "ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15]"
 ```
+
+December 14
+-----------
+
+JavaScript's `setTimeout(…, 0)` is Ruby's `at_exit { … }` except it's a queue instead of a stack
+([link](https://twitter.com/josh_cheek/status/809145252300865536)).
+
+JavaScript's queue:
+
+```sh
+node -e '
+  // queue: first in is the first out
+  setTimeout(() => console.log("a"), 0)
+  setTimeout(() => {
+    console.log("b")
+    setTimeout(() => console.log("c"), 0)
+    console.log("d")
+  }, 0)
+  setTimeout(() => console.log("e"), 0)
+'
+a
+b
+d
+e
+c
+```
+
+Ruby's stack:
+
+```sh
+ruby -e '
+  # stack: first in is the last out
+  at_exit { puts "a" }
+  at_exit {
+    puts "b"
+    at_exit { puts "c" }
+    puts "d"
+  }
+  at_exit { puts "e" }
+'
+e
+b
+d
+c
+a
+```
+
+
