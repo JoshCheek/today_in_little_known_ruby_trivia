@@ -1205,4 +1205,28 @@ c
 a
 ```
 
+December 15
+-----------
 
+`raise` turns its args into exceptions by invoking `exception` and forwarding args
+([link](https://twitter.com/josh_cheek/status/809479089904029696).
+
+```ruby
+obj = Object.new
+def obj.exception(message)
+  RuntimeError.new message
+end
+
+raise obj, "hello" # ~> RuntimeError: hello
+```
+
+Note that this is how its internal exceptions work.
+
+```ruby
+# raise RuntimeError, "a"
+RuntimeError.exception("a")  # => #<RuntimeError: a>
+
+# raise existing_error
+existing_error = RuntimeError.exception("a")
+existing_error.exception  # => #<RuntimeError: a>
+```

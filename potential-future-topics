@@ -1,7 +1,6 @@
 $& is generated when it is looked up ($\=$,=$&) != ($\=$&;$\=$,)
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
-at_exit is a thing (probably the same as END, tbh)
 you can use "then" in if statements and rescue statements
 rescue multiple types
 you can pass keywords before or after kwrest, which dictates what overrides what
@@ -33,19 +32,6 @@ You can use `then` in a lot of places
   unless false then  # => false
     1                # => 1
   end                # => 1
-
-`raise` takes an optional backtrace and if you give it a non-exception, it will invoke `exception` to get it
-  obj = Object.new
-  def obj.exception(message)
-    RuntimeError.new message
-  end
-
-  begin
-    raise obj, "hello", ['a', 'b']
-  rescue => exception
-    exception           # => #<RuntimeError: hello>
-    exception.backtrace # => ["a", "b"]
-  end
 
 included class (can be shown by requiring 'objspace' and then invoking `ObjectSpace.reachable_objects_from(klass)`)
 frozen_string_literal: true
@@ -284,3 +270,7 @@ warn_past_scope
      [1, 2, 3].sample.tap { |rand| puts "Random value: #{rand}" }; puts "Another random value: #{rand}"'
 
 Readline support baked in
+-s flag
+other command line flags
+environment variables
+all that crazy encoding stuff (I have a gist showing how it all works)
