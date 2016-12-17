@@ -1230,3 +1230,35 @@ RuntimeError.exception("a")  # => #<RuntimeError: a>
 existing_error = RuntimeError.exception("a")
 existing_error.exception  # => #<RuntimeError: a>
 ```
+
+
+December 17
+-----------
+
+Use the `--` flag to say you're done passing command-line flags
+([link](https://twitter.com/josh_cheek/status/810245030443188224)).
+
+```
+$ ruby -e 'p csv: defined?(CSV), argv: ARGV' -r csv
+{:csv=>"constant", :argv=>[]}
+
+$ ruby -e 'p csv: defined?(CSV), argv: ARGV' -- -r csv
+{:csv=>nil, :argv=>["-r", "csv"]}
+```
+
+
+December 18
+-----------
+
+Use the `-s` flag for simple command-line argument parsing:
+
+```
+ruby -e 'p(
+     b:       $b,        # -b           sets to true
+     s:       $s,        # -s=1         sets to "1"
+     bool:    $bool,     # -bool        sets to true
+     setting: $setting,  # -setting=val sets to "val"
+     argv:    ARGV,      # nonflag args are left
+   )' -s --     -b -s=1 -bool -setting=val nonflag args
+{:b=>true, :s=>"1", :bool=>true, :setting=>"val", :argv=>["nonflag", "args"]}
+```
