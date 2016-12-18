@@ -1250,15 +1250,16 @@ $ ruby -e 'p csv: defined?(CSV), argv: ARGV' -- -r csv
 December 18
 -----------
 
-Use the `-s` flag for simple command-line argument parsing:
+The `-s` flag tells Ruby to parse arguments for you. Eg add it to your script's shebang.
+([link](https://twitter.com/josh_cheek/status/810536238751039488)).
 
-```
-ruby -e 'p(
-     b:       $b,        # -b           sets to true
-     s:       $s,        # -s=1         sets to "1"
-     bool:    $bool,     # -bool        sets to true
-     setting: $setting,  # -setting=val sets to "val"
-     argv:    ARGV,      # nonflag args are left
-   )' -s --     -b -s=1 -bool -setting=val nonflag args
-{:b=>true, :s=>"1", :bool=>true, :setting=>"val", :argv=>["nonflag", "args"]}
+```sh
+$ ruby -e 'p(
+  b:       $b,
+  bool:    $bool,
+  s:       $s,
+  setting: $setting,
+  argv:    ARGV,
+)' -s --     -b -bool -s=1 -setting=val nonflag args
+{:b=>true, :bool=>true, :s=>"1", :setting=>"val", :argv=>["nonflag", "args"]}
 ```

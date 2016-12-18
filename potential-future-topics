@@ -270,7 +270,6 @@ warn_past_scope
      [1, 2, 3].sample.tap { |rand| puts "Random value: #{rand}" }; puts "Another random value: #{rand}"'
 
 Readline support baked in
--s flag
 other command line flags
 environment variables
 all that crazy encoding stuff (I have a gist showing how it all works)
