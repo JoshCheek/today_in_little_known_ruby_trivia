@@ -65,19 +65,6 @@ Safe navigation, operator method names, and block argument can be used together
 
 Flip flops
 
-5 dots in a row is valid syntax
-  # Strings are valid in a range
-  ("a"..."d")  # => "a"..."d"
-    .to_a      # => ["a", "b", "c"]
-
-  # Percent syntax lets you choose the delimiter
-  %.abc.  # => "abc"
-  %..     # => ""
-
-  # Thus, the range from empty string to empty string
-  # may include 5 dots in a row
-  %.....%..  # => ""...""
-
 There are three places you can use an ampersand in a method call
   # safe navigation operator won't invoke a method on nil
   nil.to_s    # => ""

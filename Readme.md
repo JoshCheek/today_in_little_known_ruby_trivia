@@ -1263,3 +1263,18 @@ $ ruby -e 'p(
 )' -s --     -b -bool -s=1 -setting=val nonflag args
 {:b=>true, :bool=>true, :s=>"1", :setting=>"val", :argv=>["nonflag", "args"]}
 ```
+
+
+December 20
+-----------
+
+Using the `%` string literal, and a range, the most dots you can get in a row is 5
+([link](https://twitter.com/josh_cheek/status/811298270244929536)).
+
+```ruby
+%.abc.       # => "abc"
+%..          # => ""
+""...""      # => ""...""
+%.. ... %..  # => ""...""
+%.....%..    # => ""...""
+```
