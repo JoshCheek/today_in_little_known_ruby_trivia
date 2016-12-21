@@ -1278,3 +1278,28 @@ Using the `%` string literal, and a range, the most dots you can get in a row is
 %.. ... %..  # => ""...""
 %.....%..    # => ""...""
 ```
+
+
+December 21
+-----------
+
+Exempting String bodies,
+the most consecutive dollar signs you can get in a row is 3: `%$#$$$`
+([link](https://twitter.com/josh_cheek/status/811679769381236737)).
+
+```ruby
+# $$ is a global variable representing the PID
+Process.pid  # => 29838
+$$           # => 29838
+
+# You can omit braces on global variable interpolation
+"-#{$$}-"  # => "-29838-"
+"-#$$-"    # => "-29838-"
+
+# You can choose your own String delimiter with % strings
+%$abc$  # => "abc"
+
+# This this lets us get 3 dollar signs in a row
+%$#{$$}$  # => "29838"
+%$#$$$    # => "29838"
+```

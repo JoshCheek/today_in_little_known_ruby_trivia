@@ -100,10 +100,6 @@ The most asperands you can syntactically get into a row is 3
   @@a = 2               # => 2
   self.!@@@a            # => 1
 
-The most dollar signs you can get in a row is 2
-  $$
-  %$$
-
 The most carets you can get in a row is 3
   class String
     def ^(*)
