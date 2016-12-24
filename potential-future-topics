@@ -256,3 +256,9 @@ Readline support baked in
 other command line flags
 environment variables
 all that crazy encoding stuff (I have a gist showing how it all works)
+Leading ::
+freeze
+Reflection methods
+
+meta^(n)-class
+A singleton class knows its unique instance

@@ -1303,3 +1303,16 @@ $$           # => 29838
 %$#{$$}$  # => "29838"
 %$#$$$    # => "29838"
 ```
+
+
+December 24
+-----------
+
+A metaclass (aka eigenclass) is the singleton class of a class. Its a subclass of the class's superclass's singleton class Ộ.õ
+([link](https://twitter.com/josh_cheek/status/812620574795165696)).
+
+```ruby
+c = Class.new
+metaclass = c.singleton_class
+metaclass < c.superclass.singleton_class # => true
+```
