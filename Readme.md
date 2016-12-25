@@ -1316,3 +1316,19 @@ c = Class.new
 metaclass = c.singleton_class
 metaclass < c.superclass.singleton_class # => true
 ```
+
+
+December 25
+-----------
+
+A non-primitive object's id is half the value of its memory address (true for many primitives, too)
+([link](https://twitter.com/josh_cheek/status/813114478644625408)).
+
+```ruby
+require 'fiddle'                       # => true
+A       = Class.new                    # => A
+a       = A.new                        # => #<A:0x007fa32880bf10>
+address = a.object_id * 2              # => 140338735922960
+pointer = Fiddle::Pointer.new address  # => #<Fiddle::Pointer:0x007fa328529140 ptr=0x007fa32880bf10 size=0 free=0x00000000000000>
+pointer.to_value.equal?(a)             # => true
+```
