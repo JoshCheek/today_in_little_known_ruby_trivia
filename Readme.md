@@ -1321,7 +1321,8 @@ metaclass < c.superclass.singleton_class # => true
 December 25
 -----------
 
-A non-primitive object's id is half the value of its memory address (true for many primitives, too)
+A non-primitive object's id is half the value of its memory address (true for many primitives, too).
+The reason is it gives them a bit they can use to flag the pointer as "special", eg (true/false/fixnum/some others)
 ([link](https://twitter.com/josh_cheek/status/813114478644625408)).
 
 ```ruby
@@ -1331,4 +1332,22 @@ a       = A.new                        # => #<A:0x007fa32880bf10>
 address = a.object_id * 2              # => 140338735922960
 pointer = Fiddle::Pointer.new address  # => #<Fiddle::Pointer:0x007fa328529140 ptr=0x007fa32880bf10 size=0 free=0x00000000000000>
 pointer.to_value.equal?(a)             # => true
+```
+
+
+December 26
+-----------
+
+Bracket access on integers gives access to their bits
+([link](https://twitter.com/josh_cheek/status/813406939375927301)).
+
+```ruby
+# The number thirteen
+0b1101     # => 13
+
+# Brackets on integers access their bits
+0b1101[0]  # => 1
+0b1101[1]  # => 0
+0b1101[2]  # => 1
+0b1101[3]  # => 1
 ```
