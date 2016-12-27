@@ -139,7 +139,7 @@ October 22
 
 Main is just an object with some methods defined on its singleton class.
 Explanation [here](global_functions.md).
-([link](https://twitter.com/josh_cheek/status/789844581344960512))
+([link](https://twitter.com/josh_cheek/status/790096350306115584))
 
 ```ruby
 self # => main
@@ -1350,4 +1350,29 @@ Bracket access on integers gives access to their bits
 0b1101[1]  # => 0
 0b1101[2]  # => 1
 0b1101[3]  # => 1
+```
+
+
+December 27
+-----------
+
+The first 8 bytes of an object (on a 64 bit machine) store the flags. The 8th bit is whether it's tainted
+([link](https://twitter.com/josh_cheek/status/813745284291457024)).
+
+```ruby
+require 'fiddle'
+
+object  = Object.new
+pointer = Fiddle::Pointer.new(object.object_id * 2)
+
+# Flags are stored in the first 8 bytes (on a 64 bit machine)
+def get_flag(pointer_to_ruby_object, bit)
+  flag_int = pointer_to_ruby_object[0, 8].unpack('Q')[0]
+  flag_int[bit]
+end
+
+# The 8th bit stores whether an object is tainted (we'll do one on that at some point)
+get_flag pointer, 8 # => 0
+object.taint
+get_flag pointer, 8 # => 1
 ```

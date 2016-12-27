@@ -1,3 +1,6 @@
+FLAGS
+  Objects which come from untrusted sources are "tainted" which restricts what can be done with them.
+
 $& is generated when it is looked up ($\=$,=$&) != ($\=$&;$\=$,)
 NameError::message
   on < 2.3, you could initialize this class by invoking `!@`
