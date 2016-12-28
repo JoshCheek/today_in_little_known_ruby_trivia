@@ -1376,3 +1376,37 @@ get_flag pointer, 8 # => 0
 object.taint
 get_flag pointer, 8 # => 1
 ```
+
+
+December 28
+-----------
+
+The first 5 bits of the flags contain type information. Useful for "unviewable" objects
+([link](https://twitter.com/josh_cheek/status/814136652293619712)).
+
+```ruby
+require 'fiddle'
+
+# Note that this won't work for objects whose info is the value of the pointer (eg fixnums)
+def get_type(object)
+  pointer = Fiddle::Pointer.new(object.object_id * 2)
+  flags   = pointer[0, 8].unpack('Q')[0]
+  {  0=>:none,    1=>:object,  2=>:class,    3=>:module,    4=>:float,   5=>:string,
+     6=>:regexp,  7=>:array,   8=>:hash,     9=>:struct,   10=>:bignum, 11=>:file,
+    12=>:data,   13=>:match,  14=>:complex, 15=>:rational, 17=>:nil,    18=>:true,
+    19=>:false,  20=>:symbol, 21=>:fixnum,  22=>:undef,    26=>:imemo,  27=>:node,
+    28=>:iclass, 29=>:zombie, 31=>:mask,
+  }.fetch(flags & 0x1F)
+end
+
+# The first 5 bits of the flags https://github.com/ruby/ruby/blob/b1c68c/include/ruby/ruby.h#L486
+0x1F.to_s(2) # => "11111"
+
+# Store a number that maps to an enum of the object's type
+# https://github.com/ruby/ruby/blob/b1c68c/include/ruby/ruby.h#L455
+get_type Object.new            # => :object
+get_type "abc"                 # => :string
+get_type $stdout               # => :file
+get_type /abc/                 # => :regexp
+get_type Struct.new(:a).new(1) # => :struct
+```
