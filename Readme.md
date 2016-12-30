@@ -1410,3 +1410,57 @@ get_type $stdout               # => :file
 get_type /abc/                 # => :regexp
 get_type Struct.new(:a).new(1) # => :struct
 ```
+
+
+December 29
+-----------
+
+After the flag is a pointer to the object's class.
+(cool if I say "pointer-sized" from now on?)
+([link](https://twitter.com/josh_cheek/status/814595687782486016)).
+
+```ruby
+require 'fiddle'
+
+# Note that this won't work for objects whose info is the value of the pointer
+def get_class(object)
+  address = object.object_id * 2
+
+  Fiddle::Pointer.new(address) # pointer to the object
+    .+(8)                      # move past the flags (8 bytes on my machine)
+    .ptr                       # follow the memory address to the class
+    .to_value                  # return it as a Ruby object
+end
+
+get_class Object.new # => Object
+get_class "abc"      # => String
+get_class /abc/      # => Regexp
+```
+
+
+December 30
+-----------
+
+This blaspheme is for the crass, to curse their dreams just change the class!
+([link](https://twitter.com/josh_cheek/status/814953714918244352)).
+
+```ruby
+require 'fiddle'
+
+class Object
+  def to_ptr
+    Fiddle::Pointer.new(object_id*2)
+  end
+
+  def class=(klass)
+    to_ptr[8, 8] = klass.to_ptr.ref[0, 8]
+  end
+end
+
+A, B = Class.new, Class.new
+
+obj = A.new
+obj.class # => A
+obj.class = B
+obj.class # => B
+```
