@@ -1464,3 +1464,62 @@ obj.class # => A
 obj.class = B
 obj.class # => B
 ```
+
+
+2 January
+---------
+
+This gem has the longest name
+[https://rubygems.org/gems/ivyxxcspcqlaocvjbghawvbdartwsfffurhnqzlwvsbgieweawfntuwecdcminmiaunqteqgbrfuxppntjdvyvsswxwepnbfqstnrnsotrhndihkudyahthaxatviwrwtgllwbqhibouqctrxtypac](https://rubygems.org/gems/ivyxxcspcqlaocvjbghawvbdartwsfffurhnqzlwvsbgieweawfntuwecdcminmiaunqteqgbrfuxppntjdvyvsswxwepnbfqstnrnsotrhndihkudyahthaxatviwrwtgllwbqhibouqctrxtypac).
+I unpacked it, looks like generated gem boilerplate
+([link](https://twitter.com/josh_cheek/status/816028861716713477)).
+
+```sh
+$ gem search --no-version | ruby -ne '
+   BEGIN { longest="" }
+   END { puts longest }
+   longest = $_ if $_.length > longest.length
+ '
+ivyxxcspcqlaocvjbghawvbdartwsfffurhnqzlwvsbgieweawfntuwecdcminmiaunqteqgbrfuxppntjdvyvsswxwepnbfqstnrnsotrhndihkudyahthaxatviwrwtgllwbqhibouqctrxtypac
+```
+
+
+3 January
+---------
+
+You can include a class into another class if you temporarily make it a module.
+
+```ruby
+require 'fiddle'
+
+public def to_ptr()
+  Fiddle::Pointer.new(object_id*2)
+end
+
+class Module
+  def yo_be_a_module!
+    @mah_roots    = to_ptr[0, 16]
+    to_ptr[0, 16] = Module.new.to_ptr[0, 16]
+  end
+
+  def yo_just_be_yourself!
+    to_ptr[0, 16] = @mah_roots
+  end
+end
+
+A = Class.new { def a() :from_a end }
+B = Class.new { def b() :from_b end }
+
+# No dice >.<
+B.include A rescue $! # => #<TypeError: wrong argument type Class (expected Module)>
+
+# Dice!
+A.yo_be_a_module!
+B.include A
+A.yo_just_be_yourself!
+
+# Very nice!
+B.ancestors # => [B, A, Object, BasicObject, Object, Kernel, BasicObject]
+B.new.a     # => :from_a
+B.new.b     # => :from_b
+```
