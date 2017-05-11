@@ -27,26 +27,7 @@ a                      # => 2
 October 15
 ----------
 
-Constants you're not supposed to know about. ([link](https://twitter.com/josh_cheek/status/787477591930376192))
-
-```ruby
-ObjectSpace.each_object(Module).select { |c| c.to_s[/(^|:)[a-z]/] }
-# => [Complex::compatible,
-#     Rational::compatible,
-#     NameError::message,
-#     fatal,
-#     IO::generic_writable,
-#     IO::generic_readable]
-```
-
-
-October 16
-----------
-
-`NameError::message` hangs onto the receiver so it can calculate the message on demand. ([link](https://twitter.com/josh_cheek/status/787709475377602560))
-
-```ruby
-s = String.new
+Constants you're not supposed to know about. ([link](https://twitter.com/josh_cheek/status/787477591930376192)) ```ruby ObjectSpace.each_object(Module).select { |c| c.to_s[/(^|:)[a-z]/] } # => [Complex::compatible, #     Rational::compatible, #     NameError::message, #     fatal, #     IO::generic_writable, #     IO::generic_readable] ``` October 16 ---------- `NameError::message` hangs onto the receiver so it can calculate the message on demand. ([link](https://twitter.com/josh_cheek/status/787709475377602560)) ```ruby s = String.new
 e = s.m rescue $!
 
 def s.inspect() "s1" end
@@ -1484,8 +1465,20 @@ ivyxxcspcqlaocvjbghawvbdartwsfffurhnqzlwvsbgieweawfntuwecdcminmiaunqteqgbrfuxppn
 ```
 
 
-3 January
----------
+11 May
+------
+
+Sprintf has a templating syntax (eg can replace erb if you're just inserting values)
+[link](https://twitter.com/josh_cheek/status/862681887688593408).
+
+```ruby
+sprintf "c%{vowel}t", vowel: 'a'  # => "cat"
+"c%{vowel}t" % {vowel: 'u'}       # => "cut"
+```
+
+
+12 May
+------
 
 You can include a class into another class if you temporarily make it a module.
 
