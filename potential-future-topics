@@ -1,3 +1,39 @@
+You can include a class into another class if you temporarily make it a module.
+  ```ruby
+  require 'fiddle'
+
+  public def to_ptr()
+    Fiddle::Pointer.new(object_id*2)
+  end
+
+  class Module
+    def yo_be_a_module!
+      @mah_roots    = to_ptr[0, 16]
+      to_ptr[0, 16] = Module.new.to_ptr[0, 16]
+    end
+
+    def yo_just_be_yourself!
+      to_ptr[0, 16] = @mah_roots
+    end
+  end
+
+  A = Class.new { def a() :from_a end }
+  B = Class.new { def b() :from_b end }
+
+  # No dice >.<
+  B.include A rescue $! # => #<TypeError: wrong argument type Class (expected Module)>
+
+  # Dice!
+  A.yo_be_a_module!
+  B.include A
+  A.yo_just_be_yourself!
+
+  # Very nice!
+  B.ancestors # => [B, A, Object, BasicObject, Object, Kernel, BasicObject]
+  B.new.a     # => :from_a
+  B.new.b     # => :from_b
+  ```
+
 FLAGS
   Objects which come from untrusted sources are "tainted" which restricts what can be done with them.
 
