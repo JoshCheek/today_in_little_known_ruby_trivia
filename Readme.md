@@ -1496,3 +1496,30 @@ You can embed multiple codepoints within `"\u{}"`
 "A\u{42 43 44}E"   # => "ABCDE"
 :"A\u{42 43 44}E"  # => :ABCDE
 ```
+
+
+2018
+====
+
+January 27
+----------
+
+Lambdas return from their block, like methods or JavaScript functions.
+Procs return from their containing context, like for-loops and if-statements.
+Thus, you can craft a situation where you return from a method twice!
+A LocalJumpError. [Link](https://twitter.com/josh_cheek/status/957306684271218688).
+
+```ruby
+def a
+  lambda { return :from_the_lambda }
+end
+
+def b
+  Proc.new { return :from_b_but_we_already_returned_from_b! }
+end
+
+a.call # => :from_the_lambda
+b.call # ~> LocalJumpError: unexpected return
+       # ~> program.rb:6:in `block in b'
+       # ~> program.rb:10:in `<main>'
+```
