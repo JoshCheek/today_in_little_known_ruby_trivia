@@ -1523,3 +1523,20 @@ B.ancestors # => [B, A, Object, BasicObject, Object, Kernel, BasicObject]
 B.new.a     # => :from_a
 B.new.b     # => :from_b
 ```
+
+
+2018
+====
+
+`gets(nil)` will assume there are filenames in `ARGV` and read their contents,
+one file at a time.
+[link](https://twitter.com/josh_cheek/status/992026350860029952).
+
+```sh
+$ echo -e file1 line1\nfile1 line2 > file1
+$ echo -e file2 line1\nfile2 line2 > file2
+$ ruby -e 'p gets(nil); p gets(nil); p gets(nil)' file1 file2
+"file1 line1\nfile1 line2\n"
+"file2 line1\nfile2 line2\n"
+nil
+```
