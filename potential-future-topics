@@ -266,3 +266,61 @@ Reflection methods
 meta^(n)-class
 A singleton class knows its unique instance
 erb-executable
+
+SAFE levels
+  safe_string    = "700 + 70 + 7"        # => "700 + 70 + 7"
+  tainted_string = "600 + 60 + 6".taint  # => "600 + 60 + 6"
+
+  # normally you can do scary things like eval
+  eval safe_string     # => 777
+  eval tainted_string  # => 666
+
+  # but we can set the safe mode to 1
+  $SAFE = 1            # => 1
+  eval safe_string     # => 777
+  eval tainted_string  # ~> SecurityError: Insecure operation - eval
+
+  # ~> SecurityError
+  # ~> Insecure operation - eval
+  # ~>
+  # ~> /var/folders/7g/mbft22555w3_2nqs_h1kbglw0000gn/T/seeing_is_believing_temp_dir20161227-54876-d2q6r7/program.rb:8:in `eval'
+  # ~> /var/folders/7g/mbft22555w3_2nqs_h1kbglw0000gn/T/seeing_is_believing_temp_dir20161227-54876-d2q6r7/program.rb:8:in `<main>'
+
+Block binding:
+  # > Note 1: Yes, the parenthesis `( )`` for the prepend call are required when
+  # > using this inline style. If you do not use the parenthesis it will fail
+  # > silently and the patch will not be applied.
+  # -- https://solidfoundationwebdev.com/blog/posts/writing-clean-monkey-patches-fixing-kaminari-1-0-0-argumenterror-comparison-of-fixnum-with-string-failed
+  #
+  # The code below will show what's happening in this line of code from the blog:
+  #
+  #   prepend(KaminariFix = Module.new do
+  #     ...
+  #   end)
+
+  def a(h) {a: block_given?, **h} end # This corresponds to `prepend`
+  def b()  {b: block_given?}      end # This corresponds to `Module.new`
+
+  # The structure of your code can be recreated like this,
+  # which uses parentheses to send the block to `b`
+  a(b()  do end) # => {:a=>false, :b=>true}
+
+  # The other way to use parentheses here would send the block to `a`
+  a(b()) do end  # => {:a=>true, :b=>false}
+
+  # Without parens, do/end blocks behave like the second example,
+  # binding to the first possible method call, which is why you added parens
+  a b    do end  # => {:a=>true, :b=>false}
+
+  # Curly braces are the other way to define a block
+  a(b()) { }     # => {:a=>true, :b=>false}
+  a(b()  { })    # => {:a=>false, :b=>true}
+
+  # Without parentheses, curly braces bind to the closest possible method call
+  a b    { }     # => {:a=>false, :b=>true}
+
+  # So in your code, any of these will work
+  a(b()  do end) # => {:a=>false, :b=>true}
+  a(b()  { })    # => {:a=>false, :b=>true}
+  a b    { }     # => {:a=>false, :b=>true}
+
