@@ -1454,7 +1454,7 @@ obj.class # => B
 ====
 
 
-2 January
+January 2
 ---------
 
 This gem has the longest name
@@ -1472,7 +1472,7 @@ ivyxxcspcqlaocvjbghawvbdartwsfffurhnqzlwvsbgieweawfntuwecdcminmiaunqteqgbrfuxppn
 ```
 
 
-11 May
+May 11
 ------
 
 Sprintf has a templating syntax (eg can replace erb if you're just inserting values)
@@ -1484,49 +1484,48 @@ sprintf "c%{vowel}t", vowel: 'a'  # => "cat"
 ```
 
 
-12 May
-------
+November 14
+-----------
 
-You can include a class into another class if you temporarily make it a module.
+You can embed multiple codepoints within `"\u{}"`
+([source](https://github.com/ruby/ruby/blob/0965709f1e056cef3585131db54358fe74b2427a/parse.y#L5988),
+[link](https://twitter.com/josh_cheek/status/930476277450072064)).
 
 ```ruby
-require 'fiddle'
-
-public def to_ptr()
-  Fiddle::Pointer.new(object_id*2)
-end
-
-class Module
-  def yo_be_a_module!
-    @mah_roots    = to_ptr[0, 16]
-    to_ptr[0, 16] = Module.new.to_ptr[0, 16]
-  end
-
-  def yo_just_be_yourself!
-    to_ptr[0, 16] = @mah_roots
-  end
-end
-
-A = Class.new { def a() :from_a end }
-B = Class.new { def b() :from_b end }
-
-# No dice >.<
-B.include A rescue $! # => #<TypeError: wrong argument type Class (expected Module)>
-
-# Dice!
-A.yo_be_a_module!
-B.include A
-A.yo_just_be_yourself!
-
-# Very nice!
-B.ancestors # => [B, A, Object, BasicObject, Object, Kernel, BasicObject]
-B.new.a     # => :from_a
-B.new.b     # => :from_b
+"A\u{42 43 44}E"   # => "ABCDE"
+:"A\u{42 43 44}E"  # => :ABCDE
 ```
 
 
 2018
 ====
+
+January 27
+----------
+
+Lambdas return from their block, like methods or JavaScript functions.
+Procs return from their containing context, like for-loops and if-statements.
+Thus, you can craft a situation where you return from a method twice!
+A LocalJumpError. [Link](https://twitter.com/josh_cheek/status/957306684271218688).
+
+```ruby
+def a
+  lambda { return :from_the_lambda }
+end
+
+def b
+  Proc.new { return :from_b_but_we_already_returned_from_b! }
+end
+
+a.call # => :from_the_lambda
+b.call # ~> LocalJumpError: unexpected return
+       # ~> program.rb:6:in `block in b'
+       # ~> program.rb:10:in `<main>'
+```
+
+
+May 3
+-----
 
 `gets(nil)` will assume there are filenames in `ARGV` and read their contents,
 one file at a time.
