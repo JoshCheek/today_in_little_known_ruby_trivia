@@ -8,6 +8,10 @@ These were surely inspired by sferik's Ruby Trivia:
 * Still happy to [collaborate](https://twitter.com/sferik/status/662677213758824448) ^^
 
 
+2016
+====
+
+
 October 14
 ----------
 
@@ -1445,6 +1449,9 @@ obj.class # => A
 obj.class = B
 obj.class # => B
 ```
+
+2017
+====
 
 
 2 January
