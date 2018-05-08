@@ -1563,3 +1563,35 @@ end
 using Guard
 "hello world".capitalize # => "Hello world"
 ```
+
+May 8
+-----
+
+You can save data at the end of a Ruby script.
+Run [counter.rb](counter.rb) several times to see.
+
+```sh
+$ cat counter.rb
+pos, n = DATA.pos, DATA.read.to_i.succ
+File.truncate __FILE__, pos
+File.open(__FILE__, mode: 'a') { |f| f.puts n }
+puts n
+__END__
+
+$ ruby counter.rb
+1
+
+$ ruby counter.rb
+2
+
+$ ruby counter.rb
+3
+
+$ cat counter.rb
+pos, n = DATA.pos, DATA.read.to_i.succ
+File.truncate __FILE__, pos
+File.open(__FILE__, mode: 'a') { |f| f.puts n }
+puts n
+__END__
+3
+```
