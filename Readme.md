@@ -1539,3 +1539,27 @@ $ ruby -e 'p gets(nil); p gets(nil); p gets(nil)' file1 file2
 "file2 line1\nfile2 line2\n"
 nil
 ```
+
+May 7
+-----
+
+You can use refinements to guard against guerrilla patching
+([link](https://twitter.com/josh_cheek/status/993676601702395905)).
+
+```ruby
+module Guard
+  refine String do
+    alias capitalize capitalize
+  end
+end
+
+class String
+  def capitalize
+    gsub /\b[a-z]/, &:upcase
+  end
+end
+
+"hello world".capitalize # => "Hello World"
+using Guard
+"hello world".capitalize # => "Hello world"
+```
