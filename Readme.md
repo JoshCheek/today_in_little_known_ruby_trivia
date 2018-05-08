@@ -1570,7 +1570,7 @@ May 8
 You can save data at the end of a Ruby script.
 Run [counter.rb](counter.rb) several times to see.
 
-```sh
+```ruby
 $ cat counter.rb
 pos, n = DATA.pos, DATA.read.to_i.succ
 File.truncate __FILE__, pos
