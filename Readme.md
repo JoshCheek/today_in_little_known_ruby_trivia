@@ -1595,3 +1595,21 @@ puts n
 __END__
 3
 ```
+
+May 9
+-----
+
+You can pass a hash as a block ([link](https://twitter.com/josh_cheek/status/994372365109821440)).
+
+```ruby
+keymap = {
+  h: 'left',
+  j: 'down',
+  k: 'up',
+  l: 'right',
+}
+
+typed = %I[h j k k l]           # => [:h, :j, :k, :k, :l]
+typed.map { |key| keymap[key] } # => ["left", "down", "up", "up", "right"]
+typed.map &keymap               # => ["left", "down", "up", "up", "right"]
+```
