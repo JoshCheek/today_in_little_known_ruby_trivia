@@ -1613,3 +1613,21 @@ typed = %I[h j k k l]           # => [:h, :j, :k, :k, :l]
 typed.map { |key| keymap[key] } # => ["left", "down", "up", "up", "right"]
 typed.map &keymap               # => ["left", "down", "up", "up", "right"]
 ```
+
+May 24
+------
+
+Including one module into another will not retroactively add it to ancestries
+from previous inclusions/extensions. ([link](https://twitter.com/josh_cheek/status/999716278834167809)).
+
+```ruby
+M = Module.new
+N = Module.new
+
+Before = Class.new { include M }
+M.include N
+After  = Class.new { include M }
+
+Before.ancestors.take(3) # => [Before, M, Object]
+After.ancestors.take(4)  # => [After, M, N, Object]
+```
