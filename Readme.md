@@ -1631,3 +1631,26 @@ After  = Class.new { include M }
 Before.ancestors.take(3) # => [Before, M, Object]
 After.ancestors.take(4)  # => [After, M, N, Object]
 ```
+
+May 31
+------
+
+`define_method` can take a proc. It can take a method, too, but it refuses to
+define the method across classes, so it isn't any more useful than `alias`
+([link](https://twitter.com/josh_cheek/status/1002179080484196352)).
+
+An example of where something like this would be useful: In ActiveRecord,
+you may want a method available to your instances and to your scopes, which
+are defined on the class (eg we had methods to encrypt/decrypt strings).
+
+```ruby
+class A
+  def self.useful_fn
+    'do something useful'
+  end
+  define_method :useful_fn, method(:useful_fn).to_proc
+end
+
+A.useful_fn     # => "do something useful"
+A.new.useful_fn # => "do something useful"
+```
