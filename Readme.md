@@ -1654,3 +1654,18 @@ end
 A.useful_fn     # => "do something useful"
 A.new.useful_fn # => "do something useful"
 ```
+
+June 4
+------
+
+As of 2.4, you can apparently have toplevel returns! [link](https://twitter.com/josh_cheek/status/1003612418600292352)
+(they seem to be about bailing from a file, not exporting anything or setting the exit status)
+
+```sh
+$ chruby 2.3.3; ruby -e 'puts "pre"; return; puts "post"'
+pre
+-e:1:in `<main>': unexpected return (LocalJumpError)
+
+$ chruby 2.4.1; ruby -e 'puts "pre"; return; puts "post"'
+pre
+```
