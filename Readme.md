@@ -1268,6 +1268,8 @@ Using the `%` string literal, and a range, the most dots you can get in a row is
 December 21
 -----------
 
+> **UPDATE**: `alias $$$$`
+
 Exempting String bodies,
 the most consecutive dollar signs you can get in a row is 3: `%$#$$$`
 ([link](https://twitter.com/josh_cheek/status/811679769381236737)).
