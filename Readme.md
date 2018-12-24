@@ -33,8 +33,8 @@ October 15
 
 Constants you're not supposed to know about. ([link](https://twitter.com/josh_cheek/status/787477591930376192))
 
-```
-ruby ObjectSpace.each_object(Module).select { |c| c.to_s[/(^|:)[a-z]/] }
+```ruby
+ObjectSpace.each_object(Module).select { |c| c.to_s[/(^|:)[a-z]/] }
 # => [Complex::compatible,
 #     Rational::compatible,
 #     NameError::message,
