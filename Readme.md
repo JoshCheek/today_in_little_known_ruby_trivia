@@ -1688,3 +1688,25 @@ pre
 $ chruby 2.4.1; ruby -e 'puts "pre"; return; puts "post"'
 pre
 ```
+
+December 28
+-----------
+
+You can use `\&` in a gsub replacement string to reference the entire match
+(eg instead of having to wrap the regex in a capture group in order to use `\1`).
+
+[link](https://twitter.com/josh_cheek/status/1078716272366493696)
+
+```ruby
+def format(amount, *description)
+  sprintf("$ %.2f", amount).gsub(/(?<=\d)\d{3}(?=\d{3}*\b)/, ',\&')
+end
+
+format '1'           # => "$ 1.00"
+format '1.234'       # => "$ 1.23"
+format '123.45'      # => "$ 123.45"
+format '1234.56'     # => "$ 1,234.56"
+format '12345.67'    # => "$ 12,345.67"
+format '123456.78'   # => "$ 123,456.78"
+format '1234567.89'  # => "$ 1,234,567.89"
+```
