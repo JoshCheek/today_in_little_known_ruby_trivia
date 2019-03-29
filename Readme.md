@@ -1710,3 +1710,31 @@ format '12345.67'    # => "$ 12,345.67"
 format '123456.78'   # => "$ 123,456.78"
 format '1234567.89'  # => "$ 1,234,567.89"
 ```
+
+
+2019
+====
+
+There are two incompatible ways to initialize a hash, if you try to use both,
+it raises an ArgumentError. While technically true, it's a bit unexpected b/c
+this isn't how Ruby normally works
+(thus, they must explicitly check for this case).
+
+[link](https://twitter.com/josh_cheek/status/1111654125866045440)
+
+```ruby
+# Hash#new has two ways to be initialized. It doesn't make logical sense
+# to use both, even though signature-wise, it can accept both. Thus, it
+# raises an argument error if you call it with incompatible options.
+Hash.new(0)                  # => {}
+Hash.new( ) { 1 }            # => {}
+Hash.new(0) { 1 } rescue $!  # => #<ArgumentError: wrong number of arguments (given 1, expected 0)>
+
+# There must be an explicit check for that, because the signature doesn't
+# prevent it. Eg the same thing is true for Enumerable#reduce, but it doesn't
+# check the agruments, so in the third case here, it ignores the block rather
+# than exploding.
+(1..4).reduce(1, :+)                # => 11
+(1..4).reduce(1    ) { |l,r| l*r }  # => 24
+(1..4).reduce(1, :+) { |l,r| l*r }  # => 11
+```
