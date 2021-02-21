@@ -1715,6 +1715,9 @@ format '1234567.89'  # => "$ 1,234,567.89"
 2019
 ====
 
+29 March
+--------
+
 There are two incompatible ways to initialize a hash, if you try to use both,
 it raises an ArgumentError. While technically true, it's a bit unexpected b/c
 this isn't how Ruby normally works
@@ -1737,4 +1740,35 @@ Hash.new(0) { 1 } rescue $!  # => #<ArgumentError: wrong number of arguments (gi
 (1..4).reduce(1, :+)                # => 11
 (1..4).reduce(1    ) { |l,r| l*r }  # => 24
 (1..4).reduce(1, :+) { |l,r| l*r }  # => 11
+```
+
+2021
+====
+
+21 February
+-----------
+
+`defined?` can return 15 different values. The possible non-`nil` answers are
+defined [here](https://github.com/ruby/ruby/blob/aeac4ddcc0de536c0ecdea29e01dd2505e32f6ae/iseq.c#L3089-L3104).
+The internal enum of values is defined [here](https://github.com/ruby/ruby/blob/aeac4ddcc0de536c0ecdea29e01dd2505e32f6ae/iseq.h#L276-L296).
+
+[link](https://twitter.com/josh_cheek/status/1363537542084255752)
+
+```ruby
+a = @a = @@a = 1
+defined? nothing                         # => nil
+defined? a=1                             # => "assignment"
+defined? @a                              # => "instance-variable"
+defined? a                               # => "local-variable"
+defined? @@a                             # => "class variable"
+defined? $VERBOSE                        # => "global-variable"
+defined? Object                          # => "constant"
+defined? to_s                            # => "method"
+defined? nil                             # => "nil"
+defined? self                            # => "self"
+defined? true                            # => "true"
+defined? false                           # => "false"
+defined? [1]                             # => "expression"
+send(def m() defined? yield end) {}      # => "yield"
+send def object_id() defined? super end  # => "super"
 ```
