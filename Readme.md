@@ -1745,8 +1745,8 @@ Hash.new(0) { 1 } rescue $!  # => #<ArgumentError: wrong number of arguments (gi
 2021
 ====
 
-21 February
------------
+2021-02-21
+----------
 
 `defined?` can return 15 different values. The possible non-`nil` answers are
 defined [here](https://github.com/ruby/ruby/blob/aeac4ddcc0de536c0ecdea29e01dd2505e32f6ae/iseq.c#L3089-L3104).
@@ -1774,8 +1774,8 @@ send def object_id() defined? super end  # => "super"
 ```
 
 
-22 February
------------
+2021-02-22
+----------
 
 Ruby ships with tailcall optimization, it's just off by default:
 
