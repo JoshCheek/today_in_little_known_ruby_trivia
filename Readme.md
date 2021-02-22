@@ -1779,6 +1779,8 @@ send def object_id() defined? super end  # => "super"
 
 Ruby ships with tailcall optimization, it's just off by default:
 
+[link](https://twitter.com/josh_cheek/status/1363860285510070272)
+
 ```ruby
 tailcall = !!fork
 
