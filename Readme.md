@@ -1772,3 +1772,25 @@ defined? [1]                             # => "expression"
 send(def m() defined? yield end) {}      # => "yield"
 send def object_id() defined? super end  # => "super"
 ```
+
+
+22 February
+-----------
+
+Ruby ships with tailcall optimization, it's just off by default:
+
+```ruby
+tailcall = !!fork
+
+RubyVM::InstructionSequence.new(<<~RUBY%tailcall, tailcall_optimization: tailcall).eval
+  def fact(n, res=1, stacksizes=[])
+    stacksizes << caller.size
+    n <= 1 and return {result: res, stacksizes: stacksizes, tailcall: %p}
+    fact n-1, n*res, stacksizes
+  end
+RUBY
+
+fact(5)
+# => {:result=>120, :stacksizes=>[1, 1, 1, 1, 1], :tailcall=>true}
+#    ,{:result=>120, :stacksizes=>[1, 2, 3, 4, 5], :tailcall=>false}
+```
