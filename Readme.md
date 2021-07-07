@@ -663,8 +663,8 @@ true if :""         # => true
 true if //          # => nil
 true if []          # => true
 true if {}          # => true
-true if 0...1       # => true
-true if 1..2        # => nil
+true if 0...1       # => nil
+true if 1..2        # => true
 if 1..2; true; end  # => true
 if //; true; end    # => nil
 ```
